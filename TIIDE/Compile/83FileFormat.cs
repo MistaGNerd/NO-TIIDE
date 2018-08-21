@@ -9,7 +9,7 @@ namespace TIIDE.Compile
     {
         #region Private Fields
         // Define tokens for single bytes (0x00 - 0xFF)
-        private static IDictionary<byte, string> oneByteDictionary = new Dictionary<byte, string>()
+        private static IDictionary<byte, string> baseKeywordDictionary = new Dictionary<byte, string>()
         {
             {0x00, ""}, {0x01, "►DMS"}, {0x02, "►Dec"}, {0x03, "►Frac"}, {0x04, "→"}, {0x05, "Boxplot"}, {0x06, "["}, {0x07, "]"}, {0x08, "{"}, {0x09, "}"}, {0x0A, "r"}, {0x0B, "°"}, {0x0C, "¹"}, {0x0D, "²"}, {0x0E, "T"}, {0x0F, "³"},
             {0x10, "(" }, {0x11, ")" }, {0x12, "round(" }, {0x13, "pxl-Test" }, {0x14, "augment(" }, {0x15, "rowSwap(" }, {0x16, "row+(" }, {0x17, "*row(" }, {0x18, "*row+(" }, {0x19, "max(" }, {0x1A, "min(" }, {0x1B, "R►Pr(" }, {0x1C, "R►Pθ(" }, {0x1D, "P►Rx(" }, {0x1E, "P►Ry("}, {0x1F, "median(" },
@@ -30,7 +30,7 @@ namespace TIIDE.Compile
         };
 
         // Define tokens for two byte, 0xBB branch (0x00 - 0xF5)
-        private static IDictionary<byte, string> twoByteDictionary0xBB = new Dictionary<byte, string>()
+        private static IDictionary<byte, string> miscKeywordDictionary = new Dictionary<byte, string>()
         {
             {0x00, "npv("}, {0x01, "irr("}, {0x02, "bal("}, {0x03, "Σprn("}, {0x04, "ΣInt("}, {0x05, "►Nom("}, {0x06, "►Eff("}, {0x07, "dbd("}, {0x08, "lcm("}, {0x09, "gcd("}, {0x0A, "randInt("}, {0x0B, "randBin("}, {0x0C, "sub("}, {0x0D, "stdDev("}, {0x0E, "variance("}, {0x0F, "inString("},
             {0x10, "normalcdf("}, {0x11, "invNorm("}, {0x12, "tcdf("}, {0x13, "χ²cdf("}, {0x14, "Fcdf("}, {0x15, "binompdf("}, {0x16, "binomcdf("}, {0x17, "poissonpdf("}, {0x18, "poissoncdf("}, {0x19, "geometpdf"}, {0x1A, "geometcdf("}, {0x1B, "normalpdf("}, {0x1C, "tpdf("}, {0x1D, "χ²pdf("}, {0x1E, "Fpdf("}, {0x1F, "randNorm("},
@@ -50,6 +50,12 @@ namespace TIIDE.Compile
             {0xF0, "x"}, {0xF1, "∫"}, {0xF2, ""}, {0xF3, ""}, {0xF4, "√"}, {0xF5, ""}
         };
 
+        // Define tokens for two byte, 0x5C branch - User Variables, Matricies
+        private static IDictionary<byte, string> userVariablesKeywordDictionary = new Dictionary<byte, string>()
+        {
+            // 
+        };
+
 
         #endregion Private Fields
 
@@ -58,7 +64,7 @@ namespace TIIDE.Compile
         public static string ByteToKeyword(byte b)
         {
             string keyword = "?";
-            if (oneByteDictionary.TryGetValue(b, out keyword))
+            if (baseKeywordDictionary.TryGetValue(b, out keyword))
             {
                 Console.WriteLine("Found byte at {0}", b);
                 return keyword;
@@ -75,7 +81,7 @@ namespace TIIDE.Compile
         {
             string keyword = "?";
             // Check b1 and branch if needed & Try to get value from dictionary, stored in "keyword" 
-            if (b1 == 0xBB && twoByteDictionary0xBB.TryGetValue(b2, out keyword))
+            if (b1 == 0xBB && miscKeywordDictionary.TryGetValue(b2, out keyword))
             {
                 Console.WriteLine("Found byte at {0}{1}", b1, b2);
                 return keyword;
@@ -91,7 +97,7 @@ namespace TIIDE.Compile
         // ### Untested ###
         public static byte KeywordToByte(string s)
         {
-            var result = oneByteDictionary.FirstOrDefault(x => x.Key.ToString() == s || x.Value == s);
+            var result = baseKeywordDictionary.FirstOrDefault(x => x.Key.ToString() == s || x.Value == s);
             Console.Write(result);
             return Convert.ToByte(result);
         }
