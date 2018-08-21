@@ -51,7 +51,7 @@ namespace TIIDE.Compile
         };
 
         // Define tokens for two byte, 0x5C branch - User Variables, Matricies
-        private static IDictionary<byte, string> userVariablesKeywordDictionary = new Dictionary<byte, string>()
+        private static readonly IDictionary<byte, string> userVariablesKeywordDictionary = new Dictionary<byte, string>()
         {
             // 
         };
@@ -63,8 +63,7 @@ namespace TIIDE.Compile
 
         public static string ByteToKeyword(byte b)
         {
-            string keyword = "?";
-            if (baseKeywordDictionary.TryGetValue(b, out keyword))
+            if (baseKeywordDictionary.TryGetValue(b, out string keyword))
             {
                 Console.WriteLine("Found byte at {0}", b);
                 return keyword;
@@ -79,9 +78,8 @@ namespace TIIDE.Compile
 
         public static string BytesToKeyword(byte b1, byte b2)
         {
-            string keyword = "?";
             // Check b1 and branch if needed & Try to get value from dictionary, stored in "keyword" 
-            if (b1 == 0xBB && miscKeywordDictionary.TryGetValue(b2, out keyword))
+            if (b1 == 0xBB && miscKeywordDictionary.TryGetValue(b2, out string keyword))
             {
                 Console.WriteLine("Found byte at {0}{1}", b1, b2);
                 return keyword;
