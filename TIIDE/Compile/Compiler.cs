@@ -51,12 +51,27 @@ namespace TIIDE.Compile
         {
             List<byte> byteList = loadBytes(binaryReader);
             string allbytes = "";
-
-            foreach (byte b in byteList)
+            int byteCount = byteList.Count;
+            for (int i = 0; i < byteCount; i++)
             {
-                allbytes += _83FileFormat.ByteToKeyword(b);
+                if (!_83FileFormat.DoesByteDenoteTwoByteToken(byteList[i]))
+                {
+                    allbytes += _83FileFormat.SingleByteToKeyword(byteList[i]);
+                }
+                else
+                {
+                    allbytes += _83FileFormat.DualByteToKeyword(byteList[i], byteList[i + 1]);
+                    i++;
+                }
             }
-            return allbytes; ;
+
+            //foreach (byte b in byteList)
+            //{
+            //    allbytes += _83FileFormat.ByteToKeyword(b);
+            //}
+
+            Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
+            return allbytes;
         }
 
         #endregion Public Methods
