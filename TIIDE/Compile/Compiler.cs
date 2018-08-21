@@ -55,10 +55,23 @@ namespace TIIDE.Compile
 
             string allbytes = "";
             // Program data begins at 0x50 (74)
-            for (int i = 74; i <= dataSize; i++)
+            try
+            {   // Iterate through bytes
+                for (int i = 74; i <= dataSize + 200; i++)
+                    //  Branch and send two bytes if needed
+                    if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) || byteList[i].Equals(0x5D) || byteList[i].Equals(0x5E) || byteList[i].Equals(0x60) || byteList[i].Equals(0x61) || byteList[i].Equals(0x62) || byteList[i].Equals(0x63) || byteList[i].Equals(0x7E))
+                    {
+                        allbytes += _83FileFormat.BytesToKeyword(byteList[i], byteList[i+1]);
+                        i++;
+                    }
+                    else
+                    {
+                        allbytes += _83FileFormat.ByteToKeyword(byteList[i]);
+                    }
+            }
+            catch (ArgumentOutOfRangeException e)
             {
-                byte b = byteList[i];
-                allbytes += _83FileFormat.ByteToKeyword(b);
+                Console.WriteLine(e);
             }
             return allbytes; ;
         }
@@ -67,7 +80,7 @@ namespace TIIDE.Compile
         {
             List<byte> byteList = loadBytes(binaryReader);
 
-            // Load the data size information from the header
+            // Load the data size information from 0x
             byte[] dataSizeBytes = { byteList[57], byteList[58] };
             int dataSize = BitConverter.ToUInt16(dataSizeBytes, 0);
             Console.WriteLine("Data Size: {0} bytes", dataSize);
