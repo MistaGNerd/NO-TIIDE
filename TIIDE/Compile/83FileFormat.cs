@@ -25,24 +25,26 @@ namespace TIIDE.Compile
             0xF0, 0xF1, 0xF2, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7, 0xF8, 0xF9, 0xFA, 0xFB, 0xFC, 0xFD, 0xFE, 0xFF
             };
 
+
         private static string[] keywordDictionary = {
+          // 0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F
             "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "²", "?", "³",
             "(", ")", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
             "?", "?", "?", "?", "?", "?", "?", "?", "?", " ", "\"", ",", "?", "?", "?", "?",
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "?", "?", "?", "?", ":",
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "?", "?", "?", ":", ":",
             "?", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
             "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "?", "?", "?", "?", "?",
             "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "=", "?", "?", "?", "?", "?",
             "+", "-", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
-            "?", "?", "?", "/", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
-            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "*", "/", "Trace", "ClrDraw", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "FnOn", "FnOff", "?", "?", "?", "?", "?", "?", "?", "?",
             "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "π", "?", "?", "?",
             "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
             "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
-            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
-            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
-            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
-            };
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Input ", "Prompt ", "Disp ", "?",
+            "Output(", "ClrHome", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?"
+        };
 
         #endregion Private Fields
 
@@ -50,24 +52,16 @@ namespace TIIDE.Compile
 
         public static string ByteToKeyword(byte b)
         {
-            int i = 0;
             string keyword = "?";
-            bool searching = true;
-
             Console.WriteLine("Searching for {0}. byteDictionary.Length : {1}. keywordDictionary.Length : {2}.", b, byteDictionary.Length, keywordDictionary.Length);
-            while (searching)
-            {
-                Console.WriteLine("Checking at index {0}", b);
+            Console.WriteLine("Checking at index {0}", b);
+            Console.WriteLine("Found byte at {0}", b);
+            keyword = keywordDictionary[b];
 
-                if (byteDictionary[b] == b)
-                {
-                    Console.WriteLine("Found byte at {0}", b);
-                    keyword = keywordDictionary[b];
-                    searching = false;
-                }
-                if (i < byteDictionary.Length - 1) { i++; } else { searching = false; }
-            }
-            return keyword;
+            if (keyword != "?")
+                return keyword;
+            else
+                return  "[ 0x" + b.ToString("x2").ToUpper() +" ]";
         }
 
         public static byte KeywordToByte(string s)

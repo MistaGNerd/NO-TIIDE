@@ -179,10 +179,13 @@ namespace TIIDE
             if (File.Exists(ofd.FileName))
             {
                 Console.WriteLine("Importing file {0}", ofd.FileName);
-                import = Compile.Compiler.ReverseCompile(new BinaryReader(File.OpenRead(ofd.FileName)));
+                int dataSize = Compile.Compiler.GetDataSize(new BinaryReader(File.OpenRead(ofd.FileName)));
+                import = Compile.Compiler.ReverseCompile(new BinaryReader(File.OpenRead(ofd.FileName)), dataSize);
             }
             Console.WriteLine("writing to ide");
             programCode = import;
+
+            // Add in other data from file header
             rtxtbIDE.Text = programCode;
         }
 

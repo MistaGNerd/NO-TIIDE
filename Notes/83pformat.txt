@@ -1,0 +1,45 @@
+                               83P file format 
+                              =================
+
+by Florent Dhordain <flo.dh@usa.net>
+
+Offset(hexa)
+
+ 00- 07 "**TI83**"
+ 08- 0B	0x1A, 0x0A, 0x00 (for the85-86 : 0C instead of 0A)
+ 0C- 34	Comment
+ 35- 36	file length - $39  =  Size of all data in the .8?? file, from byte $37
+        to last byte before the checksum
+
+; Var header part :
+ 37- 38	variableheader length  = 0B 00
+ 39- 41 Variable Header
+  |--- 39-3A Length of data (word)
+  |--- 3B    program type : 5 (6 for protected)
+  |--- 3C-43 program name (0-filled) 
+
+; Data part :
+ 44-45	Length of data
+ 46-47  Length of program
+ 48-xxx Program data
+xxx 	checksum (word)
+
+Notes :
+ * All the length are one word, with Least Significant Byte first
+
+ * Length of program = the length of all the program data (incredible !)
+
+ * Length of data = length of program + 2 (cause it is length of the datablock,
+   which contains program length(2 bytes) + program data)
+
+ * Word at 35-36 = length of program + $11 (17)
+
+ * The checksum is one word, the sum of all the bytes from byte 37 to
+   the last byte before the checksum, modulo 2^16-1 to fit in one word
+
+
+Thanks to :
+Sami Khawam <sKhawam@bigfoot.com> for input about general .8?? files 
+(especially .83b), and for providing us (W)tran8x(32), of course !
+
+Movax <movax@algonet.se> for telling me the variable header length was 0b 00
