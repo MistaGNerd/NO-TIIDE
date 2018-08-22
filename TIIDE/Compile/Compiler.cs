@@ -20,7 +20,7 @@ namespace TIIDE.Compile
         {
         }
 
-        internal static List<byte> loadBytes(BinaryReader binaryReader)
+        internal static List<byte> LoadBytes(BinaryReader binaryReader)
         {
             bool reading = true;
             List<byte> byteList = new List<byte>();
@@ -48,7 +48,7 @@ namespace TIIDE.Compile
 
         internal static string ReverseCompile(BinaryReader binaryReader, int dataSize)
         {
-            List<byte> byteList = loadBytes(binaryReader);
+            List<byte> byteList = LoadBytes(binaryReader);
 
             // We should use the header info. See here: https://www.ticalc.org/pub/text/calcinfo/83pformat.txt
             // TODO: Use checksum info on load to check for errors
@@ -102,7 +102,7 @@ namespace TIIDE.Compile
 
         internal static int GetDataSize(BinaryReader binaryReader)
         {
-            List<byte> byteList = loadBytes(binaryReader);
+            List<byte> byteList = LoadBytes(binaryReader);
 
             // Load the data size information from 0x
             byte[] dataSizeBytes = { byteList[57], byteList[58] };
@@ -114,7 +114,7 @@ namespace TIIDE.Compile
 
         internal static string GetComment(BinaryReader binaryReader)
         {
-            List<byte> byteList = loadBytes(binaryReader);
+            List<byte> byteList = LoadBytes(binaryReader);
 
             // Load the comment from 0x0B - 0x34 (40 bytes)
             byte[] commentBytes = new byte[50];
@@ -131,7 +131,7 @@ namespace TIIDE.Compile
 
         internal static string GetProgramName(BinaryReader binaryReader)
         {
-            List<byte> byteList = loadBytes(binaryReader);
+            List<byte> byteList = LoadBytes(binaryReader);
 
             // Load the program name from 0x3c - 0x43 (8 bytes)
             byte[] prgmNameBytes = new byte[8];
