@@ -32,7 +32,7 @@ namespace TIIDE.Compile
                 {
                     byte b = binaryReader.ReadByte();
                     byteList.Add(b);
-                    Console.WriteLine("Reading byte {0}", b.ToString("X2"));
+                    //Console.WriteLine("Reading byte {0}", b.ToString("X2"));
                     //_83FileFormat.ByteToKeyword(b);
                 }
                 catch

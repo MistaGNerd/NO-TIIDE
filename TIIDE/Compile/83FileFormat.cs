@@ -181,45 +181,6 @@ namespace TIIDE.Compile
         }*/
 
 
-        public static string BytesToKeyword(byte b1, byte b2)
-        {  
-            if (baseKeywordDictionary.TryGetValue(b, out string keyword))
-            {
-                Console.WriteLine("Found byte at {0}", b);
-                return keyword;
-            }
-            else
-            {
-                // Return something useful for debugging
-                Console.WriteLine("Missing byte at {0}", b);
-                return "[ 0x" + b.ToString("x2").ToUpper() + " ]";
-            }
-        }
-
-/*        
-    internal static string DualByteToKeyword(byte v1, byte v2)
-            {
-            int index1 = byteFindIndexInByteArray(v1, dualBytePrimaryDictionary);
-            int index2 = 0;
-            string token = "token";
-
-
-        public static string BytesToKeyword(byte b1, byte b2)
-        {
-            // Check b1 and branch if needed & Try to get value from dictionary, stored in "keyword" 
-            if (b1 == 0xBB && miscKeywordDictionary.TryGetValue(b2, out string keyword))
-            {
-                Console.WriteLine("Found byte at {0}{1}", b1, b2);
-                return keyword;
-            }
-            else
-            {
-                // Return something useful for debugging
-                Console.WriteLine("Missing byte at {0}{1}", b1, b2);
-                return "[ 0x" + b2.ToString("x2").ToUpper() + " ]";
-            }
-        }
-        
 
         /*        
             internal static string DualByteToKeyword(byte v1, byte v2)
@@ -228,62 +189,70 @@ namespace TIIDE.Compile
                     int index2 = 0;
                     string token = "token";
 
-                    switch (index1)
-                    {
-                        case 0:
-                            index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
-                            break;
 
-                        case 1:
-                            index2 = byteFindIndexInByteArray(v2, dualByteListsDictionary);
-                            break;
+                /*        
+                    internal static string DualByteToKeyword(byte v1, byte v2)
+                            {
+                            int index1 = byteFindIndexInByteArray(v1, dualBytePrimaryDictionary);
+                            int index2 = 0;
+                            string token = "token";
 
-                        case 2:
-                            index2 = byteFindIndexInByteArray(v2, dualByteEquationsDictionary);
-                            break;
+                            switch (index1)
+                            {
+                                case 0:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                                    break;
 
-                        case 3:
-                            index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
-                            break;
+                                case 1:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteListsDictionary);
+                                    break;
 
-                        case 4:
-                            index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
-                            break;
+                                case 2:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteEquationsDictionary);
+                                    break;
 
-                        case 5:
-                            index2 = byteFindIndexInByteArray(v2, dualByteStatisticsDictionary);
-                            break;
+                                case 3:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                                    break;
 
-                        case 6:
-                            index2 = byteFindIndexInByteArray(v2, dualByteWindowAndFinanceDictionary);
-                            token = keywordWindowAndFinanceDictionary[index2];
-                            break;
+                                case 4:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                                    break;
 
-                        case 7:
-                            index2 = byteFindIndexInByteArray(v2, dualByteGraphDictionary);
-                            break;
+                                case 5:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteStatisticsDictionary);
+                                    break;
 
-                        case 8:
-                            index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
-                            break;
+                                case 6:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteWindowAndFinanceDictionary);
+                                    token = keywordWindowAndFinanceDictionary[index2];
+                                    break;
 
-                        case 9:
-                            index2 = byteFindIndexInByteArray(v2, dualByteMiscellaneousDictionary);
-                            break;
-                    }
-                    return token;
-                }
+                                case 7:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteGraphDictionary);
+                                    break;
 
-                private static int byteFindIndexInByteArray(byte signature, byte[] byteArray)
-                {
-                    int index = 0;
-                    for (int i = 0; i < byteArray.Length; i++)
-                    {
-                        if (signature == byteArray[i]) { index = i; }
-                    }
-                    return index;
-                }
-        */
+                                case 8:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                                    break;
+
+                                case 9:
+                                    index2 = byteFindIndexInByteArray(v2, dualByteMiscellaneousDictionary);
+                                    break;
+                            }
+                            return token;
+                        }
+
+                        private static int byteFindIndexInByteArray(byte signature, byte[] byteArray)
+                        {
+                            int index = 0;
+                            for (int i = 0; i < byteArray.Length; i++)
+                            {
+                                if (signature == byteArray[i]) { index = i; }
+                            }
+                            return index;
+                        }
+                */
         #endregion Private Fields
 
         #region Public Methods
@@ -302,14 +271,31 @@ namespace TIIDE.Compile
         {
             if (baseKeywordDictionary.TryGetValue(b, out string keyword))
             {
-            Console.WriteLine("Found byte at {0}", b);
+            //Console.WriteLine("Found byte at {0}", b);
             return keyword;
             }
             else
             {
             // Return something useful for debugging
-            Console.WriteLine("Missing byte at {0}", b);
+            Console.WriteLine("Missing byte at {0}", b.ToString());
             return "[ 0x" + b.ToString("x2").ToUpper() + " ]";
+            }
+        }
+
+
+        public static string BytesToKeyword(byte b1, byte b2)
+        {
+            // Check b1 and branch if needed & Try to get value from dictionary, stored in "keyword" 
+            if (b1 == 0xBB && miscKeywordDictionary.TryGetValue(b2, out string keyword))
+            {
+                //Console.WriteLine("Found byte pair at {0}:{1}", b1.ToString("X2"), b2.ToString("X2"));
+                return keyword;
+            }
+            else
+            {
+                // Return something useful for debugging
+                Console.WriteLine("Missing byte pair at {0}:{1}", b1.ToString("x2"), b2.ToString("x2"));
+                return "[ 0x" + b2.ToString("x2").ToUpper() + " ]";
             }
         }
     }
