@@ -55,7 +55,8 @@ namespace TIIDE.Compile
         {
             // 
         };
-
+      
+      
         /*
         private static byte[] dualByteEquationsDictionary =
         {
@@ -146,8 +147,30 @@ namespace TIIDE.Compile
             "P/Y", "C/Y", "w(nMin)", " Zw(nMin)", "PlotStep", "ZPlotStep", "Xres", "ZXres", "TraceStep"
         };
 
-        // We may still use this?
-        /*internal static bool DoesByteDenoteTwoByteToken(byte v)
+        /*
+        private static string[] keywordDictionary = {
+            "?", "?", "?", "?", "?", "?", "[", "]", "{", "}", "r", "°", "¹", "²", "T", "³",
+            "(", ")", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", " ", "\"", ",", "i", "!", "?", "?",
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "E", "?", "?", "?", ":",
+            "?", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
+            "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "θ", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "=", "<", ">", "≤", "≥", "≠",
+            "+", "-", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "*", "/", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "π", "?", "'", "?",
+            "-", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "∟", "?", "?", "?",
+            "^", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            };
+          */
+
+        // We may still use this? 
+        /*
+        internal static bool DoesByteDenoteTwoByteToken(byte v)
         {
             bool bl = false;
             foreach (byte bt in dualBytePrimaryDictionary)
@@ -156,6 +179,29 @@ namespace TIIDE.Compile
             }
             return bl;
         }*/
+
+
+        public static string BytesToKeyword(byte b1, byte b2)
+        {  
+            if (baseKeywordDictionary.TryGetValue(b, out string keyword))
+            {
+                Console.WriteLine("Found byte at {0}", b);
+                return keyword;
+            }
+            else
+            {
+                // Return something useful for debugging
+                Console.WriteLine("Missing byte at {0}", b);
+                return "[ 0x" + b.ToString("x2").ToUpper() + " ]";
+            }
+        }
+
+/*        
+    internal static string DualByteToKeyword(byte v1, byte v2)
+            {
+            int index1 = byteFindIndexInByteArray(v1, dualBytePrimaryDictionary);
+            int index2 = 0;
+            string token = "token";
 
 
         public static string BytesToKeyword(byte b1, byte b2)
@@ -173,6 +219,7 @@ namespace TIIDE.Compile
                 return "[ 0x" + b2.ToString("x2").ToUpper() + " ]";
             }
         }
+        
 
         /*        
             internal static string DualByteToKeyword(byte v1, byte v2)
@@ -249,6 +296,7 @@ namespace TIIDE.Compile
             Console.Write(result);
             return Convert.ToByte(result);
         }
+
 
         public static string ByteToKeyword(byte b)
         {

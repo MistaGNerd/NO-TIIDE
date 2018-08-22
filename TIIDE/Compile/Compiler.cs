@@ -50,6 +50,7 @@ namespace TIIDE.Compile
         {
             List<byte> byteList = LoadBytes(binaryReader);
 
+
             // We should use the header info. See here: https://www.ticalc.org/pub/text/calcinfo/83pformat.txt
             // TODO: Use checksum info on load to check for errors
 
