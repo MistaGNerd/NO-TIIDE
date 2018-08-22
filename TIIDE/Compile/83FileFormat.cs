@@ -55,8 +55,10 @@ namespace TIIDE.Compile
         {
             // 
         };
-
-/*        private static byte[] dualByteEquationsDictionary =
+      
+      
+        /*
+        private static byte[] dualByteEquationsDictionary =
         {
             0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19,
             0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B,
@@ -71,7 +73,7 @@ namespace TIIDE.Compile
         };
 
         private static byte[] dualByteListsDictionary =
-                {
+        {
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05
         };
 
@@ -92,7 +94,7 @@ namespace TIIDE.Compile
         };
 
         private static byte[] dualBytePicturesDictionary =
-                                {
+        {
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09
         };
 
@@ -117,7 +119,8 @@ namespace TIIDE.Compile
             0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38
         };
 
-        private static string[] keywordDictionary = {
+        private static string[] keywordDictionary = 
+        {
             "?", "►DMS", "►Dec", "►Frac", "→", "Boxplot", "[", "]", "{", "}", "r", "°", "¹", "²", "T", "³",
             "(", ")", "round(", "pxl-Test(", "augment(", "rowSwap(", "row+(", "*row(", "*row+(", "max(", "min(", "R►Pr(", "R►Pθ(", "P►Rx(", "P►Ry(", "median(",
             "randM(", "mean(", "solve(", "seq(", "fnInt(", "nDeriv(", "?", "fMin(", "fMax(", " ", "\"", ",", "i", "!", "CubicReg", "QuartReg",
@@ -134,10 +137,10 @@ namespace TIIDE.Compile
             "Else", "While", "Repeat", "For(", "End", "Return", "Lbl", "Goto", "Pause", "Stop", "IS>(", "DS<(", "Input", "Prompt", "Disp", "DispGraph",
             "Output(", "ClrHome", "Fill(", "SortA(", "SortD(", "DispTable", "Menu(", "Send(", "Get(", "PlotsOn", "PlotsOff", "∟", "Plot1(", "Plot2(", "Plot3(", "?",
             "^", "×√", "1-Var Stats", "2-Var Stats", "LinReg(a+bx)", "ExpReg", "LnReg", "PwrReg", "Med-Med", "QuadReg", "ClrList", "ClrTable", "Histogram", "xyLine", "Scatter", "LinReg(ax+b)"
-            };
+        };
 
         private static string[] keywordWindowAndFinanceDictionary =
-                {
+        {
             "ZXscl", "ZYscl", "Xscl", "Yscl", "u(nMin)", "v(nMin)", "u(n-1)", "v(n-1)", "Zu(nMin)", "Zv(nMin)", "Xmin", "Xmax", "Ymin", "Ymax", "Tmin", "Tmax",
             "θmin", "θmax", "ZXmin", "ZXmax", "ZYmin", "ZYmax", "Zθmin", "Zθmax", "ZTmin", "ZTmax", "TblStart", "PlotStart", "ZPlotStart", "nMax", "ZnMax", "nMin",
             "ZnMin", "ΔTbl", "Tstep", "θstep", "ZTstep", "Zθstep", "ΔX", "ΔY", "XFact", "YFact", "TblInput", "N", "I%", "PV", "PMT", "FV",
@@ -163,10 +166,10 @@ namespace TIIDE.Compile
             "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "∟", "?", "?", "?",
             "^", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
             };
-            */
-  */
+          */
 
-        // We may still use this?
+        // We may still use this? 
+        /*
         internal static bool DoesByteDenoteTwoByteToken(byte v)
         {
             bool bl = false;
@@ -175,8 +178,7 @@ namespace TIIDE.Compile
                 if (bt == v) { bl = true; }
             }
             return bl;
-        }
-
+        }*/
 
 
         public static string BytesToKeyword(byte b1, byte b2)
@@ -201,68 +203,8 @@ namespace TIIDE.Compile
             int index2 = 0;
             string token = "token";
 
-            switch (index1)
-            {
-                case 0:
-                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
-                    break;
 
-                case 1:
-                    index2 = byteFindIndexInByteArray(v2, dualByteListsDictionary);
-                    break;
-
-                case 2:
-                    index2 = byteFindIndexInByteArray(v2, dualByteEquationsDictionary);
-                    break;
-
-                case 3:
-                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
-                    break;
-
-                case 4:
-                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
-                    break;
-
-                case 5:
-                    index2 = byteFindIndexInByteArray(v2, dualByteStatisticsDictionary);
-                    break;
-
-                case 6:
-                    index2 = byteFindIndexInByteArray(v2, dualByteWindowAndFinanceDictionary);
-                    token = keywordWindowAndFinanceDictionary[index2];
-                    break;
-
-                case 7:
-                    index2 = byteFindIndexInByteArray(v2, dualByteGraphDictionary);
-                    break;
-
-                case 8:
-                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
-                    break;
-
-                case 9:
-                    index2 = byteFindIndexInByteArray(v2, dualByteMiscellaneousDictionary);
-                    break;
-            }
-            return token;
-        }
-
-        private static int byteFindIndexInByteArray(byte signature, byte[] byteArray)
-        {
-            int index = 0;
-            for (int i = 0; i < byteArray.Length; i++)
-            {
-                if (signature == byteArray[i]) { index = i; }
-            }
-            return index;
-        }
-*/
-        #endregion Private Fields
-
-        #region Public Methods
-
-        public static byte KeywordToByte(string s)
-
+        public static string BytesToKeyword(byte b1, byte b2)
         {
             // Check b1 and branch if needed & Try to get value from dictionary, stored in "keyword" 
             if (b1 == 0xBB && miscKeywordDictionary.TryGetValue(b2, out string keyword))
@@ -277,6 +219,75 @@ namespace TIIDE.Compile
                 return "[ 0x" + b2.ToString("x2").ToUpper() + " ]";
             }
         }
+        
+
+        /*        
+            internal static string DualByteToKeyword(byte v1, byte v2)
+                    {
+                    int index1 = byteFindIndexInByteArray(v1, dualBytePrimaryDictionary);
+                    int index2 = 0;
+                    string token = "token";
+
+                    switch (index1)
+                    {
+                        case 0:
+                            index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                            break;
+
+                        case 1:
+                            index2 = byteFindIndexInByteArray(v2, dualByteListsDictionary);
+                            break;
+
+                        case 2:
+                            index2 = byteFindIndexInByteArray(v2, dualByteEquationsDictionary);
+                            break;
+
+                        case 3:
+                            index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                            break;
+
+                        case 4:
+                            index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                            break;
+
+                        case 5:
+                            index2 = byteFindIndexInByteArray(v2, dualByteStatisticsDictionary);
+                            break;
+
+                        case 6:
+                            index2 = byteFindIndexInByteArray(v2, dualByteWindowAndFinanceDictionary);
+                            token = keywordWindowAndFinanceDictionary[index2];
+                            break;
+
+                        case 7:
+                            index2 = byteFindIndexInByteArray(v2, dualByteGraphDictionary);
+                            break;
+
+                        case 8:
+                            index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                            break;
+
+                        case 9:
+                            index2 = byteFindIndexInByteArray(v2, dualByteMiscellaneousDictionary);
+                            break;
+                    }
+                    return token;
+                }
+
+                private static int byteFindIndexInByteArray(byte signature, byte[] byteArray)
+                {
+                    int index = 0;
+                    for (int i = 0; i < byteArray.Length; i++)
+                    {
+                        if (signature == byteArray[i]) { index = i; }
+                    }
+                    return index;
+                }
+        */
+        #endregion Private Fields
+
+        #region Public Methods
+
 
         // ### Untested ###
         public static byte KeywordToByte(string s)
@@ -286,16 +297,21 @@ namespace TIIDE.Compile
             return Convert.ToByte(result);
         }
 
+
         public static string ByteToKeyword(byte b)
         {
-            string keyword = "";
-            if (byteDictionary[b] == b)
+            if (baseKeywordDictionary.TryGetValue(b, out string keyword))
             {
-                Console.WriteLine("Found byte at {0}", b);
-                keyword = keywordDictionary[b];
-            }
+            Console.WriteLine("Found byte at {0}", b);
             return keyword;
+            }
+            else
+            {
+            // Return something useful for debugging
+            Console.WriteLine("Missing byte at {0}", b);
+            return "[ 0x" + b.ToString("x2").ToUpper() + " ]";
+            }
         }
-  
+    }
         #endregion Public Methods
 }
