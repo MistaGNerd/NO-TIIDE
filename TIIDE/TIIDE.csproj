@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{ADED0898-D9D6-4877-8516-98BF546F1EE0}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>TIIDE</RootNamespace>
     <AssemblyName>TIIDE</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>

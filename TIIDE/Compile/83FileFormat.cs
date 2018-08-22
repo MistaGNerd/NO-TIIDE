@@ -29,7 +29,7 @@ namespace TIIDE.Compile
             {0xF0, "^"}, {0xF1, "×√"}, {0xF2, "1-Var Stats"}, {0xF3, "2-Var Stats"}, {0xF4, "LinReg(a+bx)"}, {0xF5, "ExpReg"}, {0xF6, "LnReg"}, {0xF7, "PwrReg"}, {0xF8, "Med-Med"}, {0xF9, "QuadReg"}, {0xFA, "ClrList"}, {0xFB, "ClrTable"}, {0xFC, "Histogram"}, {0xFD, "xyLine"}, {0xFE, "Scatter"}, {0xFF, "LinReg(ax+b"}
         };
 
-        // Define tokens for two byte, 0xBB branch (0x00 - 0xF5)
+        // Define tokens for two byte, 0xBB branch - Misc (0x00 - 0xF5)
         private static IDictionary<byte, string> miscKeywordDictionary = new Dictionary<byte, string>()
         {
             {0x00, "npv("}, {0x01, "irr("}, {0x02, "bal("}, {0x03, "Σprn("}, {0x04, "ΣInt("}, {0x05, "►Nom("}, {0x06, "►Eff("}, {0x07, "dbd("}, {0x08, "lcm("}, {0x09, "gcd("}, {0x0A, "randInt("}, {0x0B, "randBin("}, {0x0C, "sub("}, {0x0D, "stdDev("}, {0x0E, "variance("}, {0x0F, "inString("},
@@ -56,13 +56,131 @@ namespace TIIDE.Compile
             // 
         };
 
-
-        #endregion Private Fields
-
-        #region Public Methods
-
-        public static string ByteToKeyword(byte b)
+/*        private static byte[] dualByteEquationsDictionary =
         {
+            0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19,
+            0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B,
+            0x40, 0x41, 0x42, 0x43, 0x44, 0x45,
+            0x80, 0x81, 0x82
+        };
+
+        private static byte[] dualByteGraphDictionary =
+        {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+            0x10, 0x11, 0x12
+        };
+
+        private static byte[] dualByteListsDictionary =
+                {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05
+        };
+
+        private static byte[] dualByteMatrices_Pictures_GDBs_StringsDictionary =
+        {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09
+        };
+
+        private static byte[] dualByteMiscellaneousDictionary =
+        {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+            0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F,
+            0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F,
+            0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F,
+            0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E, 0x4F,
+            0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5D, 0x5E, 0x5F,
+            0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F
+        };
+
+        private static byte[] dualBytePicturesDictionary =
+                                {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09
+        };
+
+        private static byte[] dualBytePrimaryDictionary =
+        {
+            0x5C, 0x5D, 0x5E, 0x60, 0x61, 0x62, 0x63, 0x7E, 0xAA, 0xBB
+        };
+
+        private static byte[] dualByteStatisticsDictionary =
+        {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+            0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F,
+            0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F,
+            0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C
+        };
+
+        private static byte[] dualByteWindowAndFinanceDictionary =
+        {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+            0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F,
+            0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F,
+            0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38
+        };
+
+        private static string[] keywordDictionary = {
+            "?", "►DMS", "►Dec", "►Frac", "→", "Boxplot", "[", "]", "{", "}", "r", "°", "¹", "²", "T", "³",
+            "(", ")", "round(", "pxl-Test(", "augment(", "rowSwap(", "row+(", "*row(", "*row+(", "max(", "min(", "R►Pr(", "R►Pθ(", "P►Rx(", "P►Ry(", "median(",
+            "randM(", "mean(", "solve(", "seq(", "fnInt(", "nDeriv(", "?", "fMin(", "fMax(", " ", "\"", ",", "i", "!", "CubicReg", "QuartReg",
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "E", "or", "xor", "newline", ":",
+            "and", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
+            "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "θ", "?", "?", "?", "prgm",
+            "?", "?", "?", "?", "Radian", "Degree", "Normal", "Sci", "Eng", "Float", "=", "<", ">", "≤", "≥", "≠",
+            "+", "-", "Ans", "Fix", "Horiz", "Full", "Func", "Param", "Polar", "Seq", "IndpntAuto", "IndpntAsk", "DependAuto", "DependAsk", "?", "?",
+            "?", "?", "*", "/", "Trace", "ClrDraw", "ZStandard", "ZTrig", "ZBox", "Zoom In", "Zoom Out", "ZSquare", "ZInteger", "ZPrevious", "ZDecimal", "ZoomStat",
+            "ZoomRcl", "PrintScreen", "ZoomSto", "Text(", "nPr", "nCr", "FnOn", "FnOff", "StorePic", "RecallPic", "StoreGDB", "RecallGDB", "Line(", "Vertical", "Pt-On(", "Pt-Off(",
+            "Pt-Change(", "Pxl-On(", "Pxl-Off(", "Pxl-Change(", "Shade(", "Circle(", "Horizontal", "Tangent(", "DrawInv", "DrawF", "?", "rand", "π", "getKey", "'", "?",
+            "-", "int(", "abs(", "det(", "identity(", "dim(", "sum(", "prod(", "not(", "iPart(", "fPart(", "?", "√(", "³√(", "ln(", "e^(",
+            "log(", "10^(", "sin(", "sinֿ¹(", "cos(", "cosֿ¹(", "tan(", "tanֿ¹(", "sinh(", "sinhֿ¹(", "cosh(", "coshֿ¹(", "tanh(", "tanhֿ¹(", "If", "Then",
+            "Else", "While", "Repeat", "For(", "End", "Return", "Lbl", "Goto", "Pause", "Stop", "IS>(", "DS<(", "Input", "Prompt", "Disp", "DispGraph",
+            "Output(", "ClrHome", "Fill(", "SortA(", "SortD(", "DispTable", "Menu(", "Send(", "Get(", "PlotsOn", "PlotsOff", "∟", "Plot1(", "Plot2(", "Plot3(", "?",
+            "^", "×√", "1-Var Stats", "2-Var Stats", "LinReg(a+bx)", "ExpReg", "LnReg", "PwrReg", "Med-Med", "QuadReg", "ClrList", "ClrTable", "Histogram", "xyLine", "Scatter", "LinReg(ax+b)"
+            };
+
+        private static string[] keywordWindowAndFinanceDictionary =
+                {
+            "ZXscl", "ZYscl", "Xscl", "Yscl", "u(nMin)", "v(nMin)", "u(n-1)", "v(n-1)", "Zu(nMin)", "Zv(nMin)", "Xmin", "Xmax", "Ymin", "Ymax", "Tmin", "Tmax",
+            "θmin", "θmax", "ZXmin", "ZXmax", "ZYmin", "ZYmax", "Zθmin", "Zθmax", "ZTmin", "ZTmax", "TblStart", "PlotStart", "ZPlotStart", "nMax", "ZnMax", "nMin",
+            "ZnMin", "ΔTbl", "Tstep", "θstep", "ZTstep", "Zθstep", "ΔX", "ΔY", "XFact", "YFact", "TblInput", "N", "I%", "PV", "PMT", "FV",
+            "P/Y", "C/Y", "w(nMin)", " Zw(nMin)", "PlotStep", "ZPlotStep", "Xres", "ZXres", "TraceStep"
+        };
+
+        /*
+        private static string[] keywordDictionary = {
+            "?", "?", "?", "?", "?", "?", "[", "]", "{", "}", "r", "°", "¹", "²", "T", "³",
+            "(", ")", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", " ", "\"", ",", "i", "!", "?", "?",
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "E", "?", "?", "?", ":",
+            "?", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
+            "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "θ", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "=", "<", ">", "≤", "≥", "≠",
+            "+", "-", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "*", "/", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "π", "?", "'", "?",
+            "-", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "∟", "?", "?", "?",
+            "^", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",
+            };
+            */
+  */
+
+        // We may still use this?
+        internal static bool DoesByteDenoteTwoByteToken(byte v)
+        {
+            bool bl = false;
+            foreach (byte bt in dualBytePrimaryDictionary)
+            {
+                if (bt == v) { bl = true; }
+            }
+            return bl;
+        }
+
+
+
+        public static string BytesToKeyword(byte b1, byte b2)
+        {  
             if (baseKeywordDictionary.TryGetValue(b, out string keyword))
             {
                 Console.WriteLine("Found byte at {0}", b);
@@ -76,7 +194,75 @@ namespace TIIDE.Compile
             }
         }
 
-        public static string BytesToKeyword(byte b1, byte b2)
+/*        
+    internal static string DualByteToKeyword(byte v1, byte v2)
+            {
+            int index1 = byteFindIndexInByteArray(v1, dualBytePrimaryDictionary);
+            int index2 = 0;
+            string token = "token";
+
+            switch (index1)
+            {
+                case 0:
+                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                    break;
+
+                case 1:
+                    index2 = byteFindIndexInByteArray(v2, dualByteListsDictionary);
+                    break;
+
+                case 2:
+                    index2 = byteFindIndexInByteArray(v2, dualByteEquationsDictionary);
+                    break;
+
+                case 3:
+                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                    break;
+
+                case 4:
+                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                    break;
+
+                case 5:
+                    index2 = byteFindIndexInByteArray(v2, dualByteStatisticsDictionary);
+                    break;
+
+                case 6:
+                    index2 = byteFindIndexInByteArray(v2, dualByteWindowAndFinanceDictionary);
+                    token = keywordWindowAndFinanceDictionary[index2];
+                    break;
+
+                case 7:
+                    index2 = byteFindIndexInByteArray(v2, dualByteGraphDictionary);
+                    break;
+
+                case 8:
+                    index2 = byteFindIndexInByteArray(v2, dualByteMatrices_Pictures_GDBs_StringsDictionary);
+                    break;
+
+                case 9:
+                    index2 = byteFindIndexInByteArray(v2, dualByteMiscellaneousDictionary);
+                    break;
+            }
+            return token;
+        }
+
+        private static int byteFindIndexInByteArray(byte signature, byte[] byteArray)
+        {
+            int index = 0;
+            for (int i = 0; i < byteArray.Length; i++)
+            {
+                if (signature == byteArray[i]) { index = i; }
+            }
+            return index;
+        }
+*/
+        #endregion Private Fields
+
+        #region Public Methods
+
+        public static byte KeywordToByte(string s)
+
         {
             // Check b1 and branch if needed & Try to get value from dictionary, stored in "keyword" 
             if (b1 == 0xBB && miscKeywordDictionary.TryGetValue(b2, out string keyword))
@@ -100,6 +286,16 @@ namespace TIIDE.Compile
             return Convert.ToByte(result);
         }
 
+        public static string ByteToKeyword(byte b)
+        {
+            string keyword = "";
+            if (byteDictionary[b] == b)
+            {
+                Console.WriteLine("Found byte at {0}", b);
+                keyword = keywordDictionary[b];
+            }
+            return keyword;
+        }
+  
         #endregion Public Methods
-    }
 }

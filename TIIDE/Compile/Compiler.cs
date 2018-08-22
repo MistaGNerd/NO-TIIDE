@@ -57,7 +57,7 @@ namespace TIIDE.Compile
             // Program data begins at 0x50 (74)
             try
             {   // Iterate through bytes
-                for (int i = 74; i <= dataSize + 200; i++)
+                for (int i = 74; i <= dataSize + 200; i++)  // TODO (MTK): Fix this
                     //  Branch and send two bytes if needed
                     if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) || byteList[i].Equals(0x5D) || byteList[i].Equals(0x5E) || byteList[i].Equals(0x60) || byteList[i].Equals(0x61) || byteList[i].Equals(0x62) || byteList[i].Equals(0x63) || byteList[i].Equals(0x7E))
                     {
@@ -73,7 +73,31 @@ namespace TIIDE.Compile
             {
                 Console.WriteLine(e);
             }
-            return allbytes; ;
+
+  /*
+            string allbytes = "";
+            int byteCount = byteList.Count;
+            for (int i = 0; i < byteCount; i++)
+            {
+                if (!_83FileFormat.DoesByteDenoteTwoByteToken(byteList[i]))
+                {
+                    allbytes += _83FileFormat.SingleByteToKeyword(byteList[i]);
+                }
+                else
+                {
+                    allbytes += _83FileFormat.DualByteToKeyword(byteList[i], byteList[i + 1]);
+                    i++;
+                }
+
+            
+*/
+            //foreach (byte b in byteList)
+            //{
+            //    allbytes += _83FileFormat.ByteToKeyword(b);
+            //}
+
+            Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
+            return allbytes;
         }
 
         internal static int GetDataSize(BinaryReader binaryReader)
@@ -122,7 +146,6 @@ namespace TIIDE.Compile
 
             return prgmName;
         }
-
             #endregion Public Methods
-        }
+    }
 }
