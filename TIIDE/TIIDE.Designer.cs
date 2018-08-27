@@ -99,7 +99,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(1067, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuStrip1_ItemClicked);
             // 
             // fILEToolStripMenuItem
             // 
@@ -121,7 +121,7 @@
             this.openTIProjectFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openTIProjectFileToolStripMenuItem.Size = new System.Drawing.Size(267, 26);
             this.openTIProjectFileToolStripMenuItem.Text = "Open Project";
-            this.openTIProjectFileToolStripMenuItem.Click += new System.EventHandler(this.openTIProjectFileToolStripMenuItem_Click);
+            this.openTIProjectFileToolStripMenuItem.Click += new System.EventHandler(this.OpenTIProjectFileToolStripMenuItem_Click);
             // 
             // importProgramToolStripMenuItem
             // 
@@ -129,7 +129,7 @@
             this.importProgramToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.importProgramToolStripMenuItem.Size = new System.Drawing.Size(267, 26);
             this.importProgramToolStripMenuItem.Text = "Save Project";
-            this.importProgramToolStripMenuItem.Click += new System.EventHandler(this.importProgramToolStripMenuItem_Click);
+            this.importProgramToolStripMenuItem.Click += new System.EventHandler(this.ImportProgramToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -143,7 +143,7 @@
             | System.Windows.Forms.Keys.I)));
             this.importToolStripMenuItem.Size = new System.Drawing.Size(267, 26);
             this.importToolStripMenuItem.Text = "Import Program";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.ImportToolStripMenuItem_Click);
             // 
             // exportProgramToolStripMenuItem
             // 
@@ -164,7 +164,7 @@
             this.exitToolStripMenuItem.ShortcutKeyDisplayString = "Alt-F4";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(267, 26);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // projectToolStripMenuItem
             // 
@@ -190,21 +190,21 @@
             this.rawToolStripMenuItem.Name = "rawToolStripMenuItem";
             this.rawToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.rawToolStripMenuItem.Text = "Raw";
-            this.rawToolStripMenuItem.Click += new System.EventHandler(this.rawToolStripMenuItem_Click);
+            this.rawToolStripMenuItem.Click += new System.EventHandler(this.RawToolStripMenuItem_Click);
             // 
             // standardToolStripMenuItem
             // 
             this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
             this.standardToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.standardToolStripMenuItem.Text = "Standard";
-            this.standardToolStripMenuItem.Click += new System.EventHandler(this.standardToolStripMenuItem_Click);
+            this.standardToolStripMenuItem.Click += new System.EventHandler(this.StandardToolStripMenuItem_Click);
             // 
             // hexToolStripMenuItem
             // 
             this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
             this.hexToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.hexToolStripMenuItem.Text = "Hex";
-            this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
+            this.hexToolStripMenuItem.Click += new System.EventHandler(this.HexToolStripMenuItem_Click);
             // 
             // projectToolStripMenuItem1
             // 
@@ -231,7 +231,7 @@
             this.lineNumberDisplay.TabIndex = 2;
             this.lineNumberDisplay.TabStop = false;
             this.lineNumberDisplay.Text = "";
-            this.lineNumberDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rtxtbLineNumbers_MouseDown);
+            this.lineNumberDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RtxtbLineNumbers_MouseDown);
             // 
             // rtxtbIDE
             // 
@@ -245,11 +245,11 @@
             this.rtxtbIDE.TabIndex = 3;
             this.rtxtbIDE.Text = "";
             this.rtxtbIDE.WordWrap = false;
-            this.rtxtbIDE.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
-            this.rtxtbIDE.VScroll += new System.EventHandler(this.richTextBox1_VScroll);
-            this.rtxtbIDE.FontChanged += new System.EventHandler(this.richTextBox1_FontChanged);
-            this.rtxtbIDE.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-            this.rtxtbIDE.MouseEnter += new System.EventHandler(this.rtxtbIDE_MouseEnter);
+            this.rtxtbIDE.SelectionChanged += new System.EventHandler(this.RichTextBox1_SelectionChanged);
+            this.rtxtbIDE.VScroll += new System.EventHandler(this.RichTextBox1_VScroll);
+            this.rtxtbIDE.FontChanged += new System.EventHandler(this.RichTextBox1_FontChanged);
+            this.rtxtbIDE.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
+            this.rtxtbIDE.MouseEnter += new System.EventHandler(this.RtxtbIDE_MouseEnter);
             // 
             // toolStrip1
             // 

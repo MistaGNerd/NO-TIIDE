@@ -79,10 +79,9 @@ namespace TIIDE.Compile
                     allbytes += _83FileFormat.IntegerToString(tokenInteger);
                 }
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (ArgumentOutOfRangeException)
             {
                 Console.WriteLine("ReverseCompile(): Argument out of range! Are we losing data?");
-                //Console.WriteLine(e);
             }
 
             //Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
