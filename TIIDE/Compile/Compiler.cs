@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using TICalcLibrary;
 
 namespace TIIDE.Compile
 {
@@ -129,10 +131,54 @@ namespace TIIDE.Compile
                 prgmNameBytes[i1] = byteList[b];
                 i1++;
             }
-            string prgmName = System.Text.Encoding.ASCII.GetString(prgmNameBytes);
+            string prgmName = Encoding.ASCII.GetString(prgmNameBytes);
             Console.WriteLine("Program Name: {0}", prgmName);
 
             return prgmName;
+        }
+
+        internal static TI83Model Decompile(List<byte> byteList)
+        {
+            // Setup *83p file object
+            TI83Model file83 = new TI83Model();
+
+            // Load program [Type] and [Program Name]
+            byte[] prgmTypeBytes = new byte[8];
+            byte[] prgmNameBytes = new byte[8];
+            for (int i = 0; i < 8; i++)
+            {
+                prgmTypeBytes[i] = byteList[i + file83.TypeOffset];
+                prgmNameBytes[i] = byteList[i + file83.NameOffset];
+            }
+            file83.Type = Encoding.ASCII.GetString(prgmTypeBytes);
+            file83.Name = Encoding.ASCII.GetString(prgmNameBytes);
+
+            // Load program [Comment]
+            byte[] prgmCommentBytes = new byte[40];
+            for (int i = 0; i < 40; i++)
+                prgmCommentBytes[i] = byteList[i + file83.CommentOffset];
+            file83.Comment = Encoding.ASCII.GetString(prgmCommentBytes);
+
+            // Load program [Data Length]
+            byte[] prgmDataLength = new byte[2];
+            for (int i = 0; i < 2; i++)
+                prgmDataLength[i] = byteList[i + file83.DataLengthOffset];
+            file83.DataLength = (prgmDataLength[0] << 8) + prgmDataLength[1]; // TODO: Double check this
+
+            // Load program [Data]
+            List<byte> prgmData = new List<byte>();
+            for (int i = 0; i < file83.DataLength - 16 )
+                prgmData[i] = byteList[i + file83.DataOffset];
+            file83.Data = prgmData;
+
+            // Load program [Checksum]
+            byte[] prgmChecksum = new byte[16];
+            int checksumOffset = file83.DataOffset + file83.DataLength;
+            for (int i = 0; i < 16; i++)
+                prgmChecksum[i] = byteList[i + checksumOffset];
+            file83.Checksum = prgmChecksum;
+
+            return file83;
         }
             #endregion Public Methods
     }
