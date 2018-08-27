@@ -30,10 +30,10 @@ namespace TIIDE.Compile
             }
             catch
             {
-                int integer = i;
+                //  int integer = i;
                 // TODO: Not entirely sure if this is little or big endian. Changing the endianess could be wrong.
-                i = ((i << 8) | (i >> 8)) & 0xFFFF;
-                Console.WriteLine("ERROR: Attempt to access integer {0} | hex {1} in database failed.", integer, i.ToString("x4"));
+                //i = ((i << 8) | (i >> 8)) & 0xFFFF;
+                Console.WriteLine("ERROR: Attempt to access integer {0} | hex {1} in database failed.", i, i.ToString("x4"));
                 return "[?|" + i.ToString("X4") +"]";
             }
         }

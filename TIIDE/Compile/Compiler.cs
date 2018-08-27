@@ -33,7 +33,6 @@ namespace TIIDE.Compile
                     byte b = binaryReader.ReadByte();
                     byteList.Add(b);
                     //Console.WriteLine("Reading byte {0}", b.ToString("X2"));
-                    //_83FileFormat.ByteToKeyword(b);
                 }
                 catch
                 {
@@ -53,13 +52,17 @@ namespace TIIDE.Compile
             // TODO: Use checksum info on load to check for errors
             int tokenInteger = 0;
             string allbytes = "";
-            // Program data begins at 0x50 (74)
+            // Program data begins at 0x50 (74), maybe?... 
+            // Perhaps the variable header alters the data start location?
             try
             {   // Iterate through bytes
                 for (int i = 73; i <= byteList.Count - 4; i++)
                 {
-                    //  Branch and send two bytes if needed
-                    if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) || byteList[i].Equals(0x5D) || byteList[i].Equals(0x5E) || byteList[i].Equals(0x60) || byteList[i].Equals(0x61) || byteList[i].Equals(0x62) || byteList[i].Equals(0x63) || byteList[i].Equals(0x7E))
+                    // Branch to else and assume the first byte is 0x00 if it does not match here.
+                    if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) || 
+                        byteList[i].Equals(0x5D) || byteList[i].Equals(0x5E) || byteList[i].Equals(0x60) ||
+                        byteList[i].Equals(0x61) || byteList[i].Equals(0x62) || byteList[i].Equals(0x63) || 
+                        byteList[i].Equals(0x7E) || byteList[i].Equals(0xEF))
                     {
                         // Combine the two bytes into an integer
                         tokenInteger = (byteList[i] << 8) + byteList[i + 1];
@@ -71,9 +74,9 @@ namespace TIIDE.Compile
                         // Assume that the first byte is 0x00 and combine it with the second.
                         tokenInteger = (0 << 8) + byteList[i + 1];
                     }
-                    // Get the string from the database and append it to the variable
+                    // Get the string from the database and append it to the variableS
                     //Console.WriteLine(tokenInteger);
-                    allbytes += _83FileFormat.IntegerToString(tokenInteger).Replace("\n", String.Empty);
+                    allbytes += _83FileFormat.IntegerToString(tokenInteger);
                 }
             }
             catch (ArgumentOutOfRangeException e)
