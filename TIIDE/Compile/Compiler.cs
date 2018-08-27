@@ -25,7 +25,7 @@ namespace TIIDE.Compile
             bool reading = true;
             List<byte> byteList = new List<byte>();
 
-            Console.WriteLine("Starting byte read.");
+            Console.WriteLine("LoadBytes(): Starting byte read.");
             while (reading)
             {
                 try
@@ -39,8 +39,8 @@ namespace TIIDE.Compile
                     reading = false;
                 }
             }
-            Console.WriteLine("Completed byte read.");
-            Console.WriteLine("All Bytes Loaded.");
+            Console.WriteLine("LoadBytes(): Completed byte read.");
+            //Console.WriteLine("All Bytes Loaded.");
 
             return byteList;
         }
@@ -71,17 +71,17 @@ namespace TIIDE.Compile
                     }
                     else
                     {
-                        // Assume that the first byte is 0x00 and combine it with the second.
-                        tokenInteger = (0 << 8) + byteList[i + 1];
+                        // Assume that the first byte is 0x00 and combine it with the current byte.
+                        tokenInteger = (0x00 << 8) + byteList[i];
                     }
-                    // Get the string from the database and append it to the variableS
+                    // Get the string from the database and append it to the variable
                     //Console.WriteLine(tokenInteger);
                     allbytes += _83FileFormat.IntegerToString(tokenInteger);
                 }
             }
             catch (ArgumentOutOfRangeException e)
             {
-                Console.WriteLine("Argument out of range! Are we losing data?");
+                Console.WriteLine("ReverseCompile(): Argument out of range! Are we losing data?");
                 //Console.WriteLine(e);
             }
 
