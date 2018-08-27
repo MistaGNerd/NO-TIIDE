@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using TIIDE.Compile;
 
 namespace TIIDE
 {
@@ -9,7 +11,7 @@ namespace TIIDE
     {
         #region Private Fields
 
-        private OpenFileDialog ofd = new OpenFileDialog();
+        private OpenFileDialog ofd = new OpenFileDialog() {Filter= "TI-83+ Program Files (*.8xp)|*.8xp|TI-82/83 Program Files (*.83p)|*.83p|All Files (*.*)|*.*" };
         private string programCode = "";
 
         #endregion Private Fields
@@ -27,7 +29,7 @@ namespace TIIDE
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            init();
+            Init();
             lineNumberDisplay.SelectionAlignment = HorizontalAlignment.Right;
             rtxtbIDE.Select();
             UpdateGUI();
@@ -41,8 +43,8 @@ namespace TIIDE
         private void InsertLineNumbers()
         {
             lineNumberDisplay.Text = "";
-            int fLine = getLineNumberOfFirstVisibleLine();
-            int lLine = getLineNumberOfLastVisibleLine();
+            int fLine = GetLineNumberOfFirstVisibleLine();
+            int lLine = GetLineNumberOfLastVisibleLine();
 
             for (int i = fLine; i <= lLine; i++)
             {
@@ -50,18 +52,11 @@ namespace TIIDE
             }
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void MenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
         }
 
-        private void richTextBox1_FontChanged(object sender, EventArgs e)
-        {
-            lineNumberDisplay.Font = rtxtbIDE.Font;
-            rtxtbIDE.Select();
-            UpdateGUI();
-        }
-
-        private void richTextBox1_SelectionChanged(object sender, EventArgs e)
+        private void RichTextBox1_SelectionChanged(object sender, EventArgs e)
         {
             //checks if text cursor is at start of line. Assumes new line is created and runs UpdateGUI for linenumbers.
             if (rtxtbIDE.GetPositionFromCharIndex(rtxtbIDE.SelectionStart).X == 1)
@@ -70,23 +65,23 @@ namespace TIIDE
             }
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
             UpdateGUI();
         }
 
-        private void richTextBox1_VScroll(object sender, EventArgs e)
+        private void RichTextBox1_VScroll(object sender, EventArgs e)
         {
             UpdateGUI();
         }
 
-        private void rtxtbLineNumbers_MouseDown(object sender, MouseEventArgs e)
+        private void RtxtbLineNumbers_MouseDown(object sender, MouseEventArgs e)
         {
             rtxtbIDE.Select();
             lineNumberDisplay.DeselectAll();
         }
 
-        private void rtxtbLineNumbers_VScroll(object sender, EventArgs e)
+        private void RtxtbLineNumbers_VScroll(object sender, EventArgs e)
         {
             UpdateGUI();
         }
@@ -101,7 +96,7 @@ namespace TIIDE
 
         #endregion Private Methods
 
-        private string applyHexOrderFormatting(string s)
+        private string ApplyHexOrderFormatting(string s)
         {
             int loops = s.Length / 16;
             string o = "";
@@ -119,7 +114,7 @@ namespace TIIDE
             return o;
         }
 
-        private string applyIDEFormatting(string s)
+        private string ApplyIDEFormatting(string s)
         {
             string[] t = s.Split(':');
             string o = "";
@@ -130,7 +125,7 @@ namespace TIIDE
             return o;
         }
 
-        private int getLineNumberOfFirstVisibleLine()
+        private int GetLineNumberOfFirstVisibleLine()
         {
             Point pt = new Point(1, 1);
             char firstChar = rtxtbIDE.GetCharFromPosition(pt);
@@ -143,7 +138,7 @@ namespace TIIDE
             return fLine;
         }
 
-        private int getLineNumberOfLastVisibleLine()
+        private int GetLineNumberOfLastVisibleLine()
         {
             Point pt = new Point(ClientRectangle.Width, ClientRectangle.Height);
             char lastChar = rtxtbIDE.GetCharFromPosition(pt);
@@ -156,42 +151,37 @@ namespace TIIDE
             return lLine;
         }
 
-        private int getTotalNumberOfLines()
+        private int GetTotalNumberOfLines()
         {
             return rtxtbIDE.Lines.Length;
         }
 
-        private void hexToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            rtxtbIDE.Text = applyHexOrderFormatting(programCode);
-        }
-
-        private void importProgramToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ImportProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
 
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        // Load in file from Open File Dialog
+        private void ImportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ofd.ShowDialog();
+            ofd.ShowDialog();   
             string import = "";
             rtxtbIDE.Text = import;
 
             if (File.Exists(ofd.FileName))
             {
                 Console.WriteLine("Importing file {0}", ofd.FileName);
-                int dataSize = Compile.Compiler.GetDataSize(new BinaryReader(File.OpenRead(ofd.FileName)));
-                import = Compile.Compiler.ReverseCompile(new BinaryReader(File.OpenRead(ofd.FileName)), dataSize);
+                var file83 = Compiler.Decompile(new BinaryReader(File.OpenRead(ofd.FileName)));
+                import = Compiler.ReverseCompile(new List<Byte> (file83.Data));
             }
             Console.WriteLine("writing to ide");
             programCode = import;
 
-            // Add in other data from file header
             rtxtbIDE.Text = programCode;
         }
 
-        private void init()
+        private void Init()
         {
-            toolStripComboBox2.SelectedIndex = 3;
+            FontSizeComboBox.SelectedIndex = 6;
             Font ideFont = new Font("Arial", 16, FontStyle.Regular);
             rtxtbIDE.Font = ideFont;
             lineNumberDisplay.Font = ideFont;
@@ -209,32 +199,69 @@ namespace TIIDE
             if (rtxtbIDE.Lines != lines) { rtxtbIDE.Lines = lines; }
         }
 
-        private void openTIProjectFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenTIProjectFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
 
-        private void rawToolStripMenuItem_Click(object sender, EventArgs e)
+        // Code formatting selection box controls
+        // ---------------------------------------
+        private void RawToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Make sure standard and hex are unchecked
+            rawToolStripMenuItem.Checked = true;
+            standardToolStripMenuItem.Checked = false;
+            hexToolStripMenuItem.Checked = false;
             rtxtbIDE.Text = programCode;
         }
 
-        private void rtxtbIDE_MouseEnter(object sender, EventArgs e)
+        private void StandardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Make sure raw and hex are unchecked
+            rawToolStripMenuItem.Checked = false;
+            standardToolStripMenuItem.Checked = true;
+            hexToolStripMenuItem.Checked = false;
+
+            // Apply "Standard" formatting
+            rtxtbIDE.Text = ApplyIDEFormatting(programCode);
+        }
+
+        private void HexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Make sure raw and standard are unchecked
+            rawToolStripMenuItem.Checked = false;
+            standardToolStripMenuItem.Checked = false;
+            hexToolStripMenuItem.Checked = true;
+            rtxtbIDE.Text = ApplyHexOrderFormatting(programCode);
+        }
+
+        private void RtxtbIDE_MouseEnter(object sender, EventArgs e)
         {
             Point pt = rtxtbIDE.GetPositionFromCharIndex(rtxtbIDE.SelectionStart);
             Console.WriteLine(pt.ToString());
         }
 
-        private void standardToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+        private void FontSizeComboBox_TextChanged(object sender, EventArgs e)
         {
-            rtxtbIDE.Text = applyIDEFormatting(programCode);
+            int size = int.Parse(FontSizeComboBox.Text);
+            Font fontArial = new Font("Arial", size, FontStyle.Regular);
+            rtxtbIDE.Font = fontArial;
+            lineNumberDisplay.Font = fontArial;
         }
 
-        private void toolStripComboBox2_TextChanged(object sender, EventArgs e)
+        private void RichTextBox1_FontChanged(object sender, EventArgs e)
         {
-            int size = int.Parse(toolStripComboBox2.Text);
-            Font font = new Font("Arial", size, FontStyle.Regular);
-            rtxtbIDE.Font = font;
-            lineNumberDisplay.Font = font;
+            lineNumberDisplay.Font = rtxtbIDE.Font;
+            rtxtbIDE.Select();
+            UpdateGUI();
+        }
+
+
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
