@@ -54,13 +54,6 @@ namespace TIIDE
         {
         }
 
-        private void richTextBox1_FontChanged(object sender, EventArgs e)
-        {
-            lineNumberDisplay.Font = rtxtbIDE.Font;
-            rtxtbIDE.Select();
-            UpdateGUI();
-        }
-
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
         {
             //checks if text cursor is at start of line. Assumes new line is created and runs UpdateGUI for linenumbers.
@@ -161,11 +154,6 @@ namespace TIIDE
             return rtxtbIDE.Lines.Length;
         }
 
-        private void hexToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            rtxtbIDE.Text = applyHexOrderFormatting(programCode);
-        }
-
         private void importProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
@@ -191,7 +179,7 @@ namespace TIIDE
 
         private void init()
         {
-            toolStripComboBox2.SelectedIndex = 3;
+            FontSizeComboBox.SelectedIndex = 6;
             Font ideFont = new Font("Arial", 16, FontStyle.Regular);
             rtxtbIDE.Font = ideFont;
             lineNumberDisplay.Font = ideFont;
@@ -213,9 +201,35 @@ namespace TIIDE
         {
         }
 
+        // Code formatting selection box controls
+        // ---------------------------------------
         private void rawToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Make sure standard and hex are unchecked
+            rawToolStripMenuItem.Checked = true;
+            standardToolStripMenuItem.Checked = false;
+            hexToolStripMenuItem.Checked = false;
             rtxtbIDE.Text = programCode;
+        }
+
+        private void standardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Make sure raw and hex are unchecked
+            rawToolStripMenuItem.Checked = false;
+            standardToolStripMenuItem.Checked = true;
+            hexToolStripMenuItem.Checked = false;
+
+            // Apply "Standard" formatting
+            rtxtbIDE.Text = applyIDEFormatting(programCode);
+        }
+
+        private void hexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Make sure raw and standard are unchecked
+            rawToolStripMenuItem.Checked = false;
+            standardToolStripMenuItem.Checked = false;
+            hexToolStripMenuItem.Checked = true;
+            rtxtbIDE.Text = applyHexOrderFormatting(programCode);
         }
 
         private void rtxtbIDE_MouseEnter(object sender, EventArgs e)
@@ -224,17 +238,28 @@ namespace TIIDE
             Console.WriteLine(pt.ToString());
         }
 
-        private void standardToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+        private void FontSizeComboBox_TextChanged(object sender, EventArgs e)
         {
-            rtxtbIDE.Text = applyIDEFormatting(programCode);
+            int size = int.Parse(FontSizeComboBox.Text);
+            Font fontArial = new Font("Arial", size, FontStyle.Regular);
+            rtxtbIDE.Font = fontArial;
+            lineNumberDisplay.Font = fontArial;
         }
 
-        private void toolStripComboBox2_TextChanged(object sender, EventArgs e)
+        private void richTextBox1_FontChanged(object sender, EventArgs e)
         {
-            int size = int.Parse(toolStripComboBox2.Text);
-            Font font = new Font("Arial", size, FontStyle.Regular);
-            rtxtbIDE.Font = font;
-            lineNumberDisplay.Font = font;
+            lineNumberDisplay.Font = rtxtbIDE.Font;
+            rtxtbIDE.Select();
+            UpdateGUI();
+        }
+
+
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
