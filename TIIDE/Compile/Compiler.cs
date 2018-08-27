@@ -47,9 +47,10 @@ namespace TIIDE.Compile
             return byteList;
         }
 
-        internal static string ReverseCompile(BinaryReader binaryReader)
+        internal static string ReverseCompile(List<byte> byteList)
         {
-            List<byte> byteList = LoadBytes(binaryReader);
+            //List<byte> byteList = LoadBytes(binaryReader);
+
             // We should use the header info. See here: https://www.ticalc.org/pub/text/calcinfo/83pformat.txt
             // TODO: Use checksum info on load to check for errors
             int tokenInteger = 0;
@@ -58,7 +59,7 @@ namespace TIIDE.Compile
             // Perhaps the variable header alters the data start location?
             try
             {   // Iterate through bytes
-                for (int i = 73; i <= byteList.Count - 4; i++)
+                for (int i = 0; i < byteList.Count; i++)
                 {
                     // Branch to else and assume the first byte is 0x00 if it does not match here.
                     if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) || 
@@ -89,7 +90,7 @@ namespace TIIDE.Compile
             //Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
             return allbytes;
         }
-
+        /*
         internal static int GetDataSize(BinaryReader binaryReader)
         {
             List<byte> byteList = LoadBytes(binaryReader);
@@ -136,10 +137,14 @@ namespace TIIDE.Compile
 
             return prgmName;
         }
+        */
+        
 
-        internal static TI83Model Decompile(List<byte> byteList)
+        internal static TI83Model Decompile(BinaryReader binaryReader)
         {
-            // Setup *83p file object
+            List<byte> byteList = LoadBytes(binaryReader);
+
+            // Create *83p file object
             TI83Model file83 = new TI83Model();
 
             // Load program [Type] and [Program Name]
@@ -159,21 +164,28 @@ namespace TIIDE.Compile
                 prgmCommentBytes[i] = byteList[i + file83.CommentOffset];
             file83.Comment = Encoding.ASCII.GetString(prgmCommentBytes);
 
-            // Load program [Data Length]
+            // Load program [Data Length] (size in bytes)
             byte[] prgmDataLength = new byte[2];
             for (int i = 0; i < 2; i++)
                 prgmDataLength[i] = byteList[i + file83.DataLengthOffset];
-            file83.DataLength = (prgmDataLength[0] << 8) + prgmDataLength[1]; // TODO: Double check this
+            file83.DataLength = (prgmDataLength[1] << 8) + prgmDataLength[0];
 
             // Load program [Data]
-            List<byte> prgmData = new List<byte>();
-            for (int i = 0; i < file83.DataLength - 16 )
+            //List<byte> prgmData = new List<byte>();
+            byte[] prgmData = new byte[file83.DataLength];
+            for (int i = 2; i < (file83.DataLength); i++)
                 prgmData[i] = byteList[i + file83.DataOffset];
             file83.Data = prgmData;
 
+            // Load program [ProtectFlag]
+            if (byteList[file83.ProtectFlagOffset].Equals(6))
+                file83.ProtectFlag = true;
+            else
+                file83.ProtectFlag = false;
+
             // Load program [Checksum]
             byte[] prgmChecksum = new byte[16];
-            int checksumOffset = file83.DataOffset + file83.DataLength;
+            int checksumOffset = file83.DataLength - 16;
             for (int i = 0; i < 16; i++)
                 prgmChecksum[i] = byteList[i + checksumOffset];
             file83.Checksum = prgmChecksum;

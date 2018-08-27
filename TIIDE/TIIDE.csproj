@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Compile\83FileFormat.cs" />
     <Compile Include="Compile\SqliteDataAccess.cs" />
     <Compile Include="Compile\TokenModel.cs" />

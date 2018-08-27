@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using TIIDE.Compile;
 
 namespace TIIDE
 {
@@ -168,8 +170,8 @@ namespace TIIDE
             if (File.Exists(ofd.FileName))
             {
                 Console.WriteLine("Importing file {0}", ofd.FileName);
-                int dataSize = Compile.Compiler.GetDataSize(new BinaryReader(File.OpenRead(ofd.FileName)));
-                import = Compile.Compiler.ReverseCompile(new BinaryReader(File.OpenRead(ofd.FileName)));
+                var file83 = Compiler.Decompile(new BinaryReader(File.OpenRead(ofd.FileName)));
+                import = Compiler.ReverseCompile(new List<Byte> (file83.Data));
             }
             Console.WriteLine("writing to ide");
             programCode = import;
