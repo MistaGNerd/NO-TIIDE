@@ -46,58 +46,43 @@ namespace TIIDE.Compile
             return byteList;
         }
 
-        internal static string ReverseCompile(BinaryReader binaryReader, int dataSize)
+        internal static string ReverseCompile(BinaryReader binaryReader)
         {
             List<byte> byteList = LoadBytes(binaryReader);
-
-
             // We should use the header info. See here: https://www.ticalc.org/pub/text/calcinfo/83pformat.txt
             // TODO: Use checksum info on load to check for errors
-
+            int tokenInteger = 0;
             string allbytes = "";
             // Program data begins at 0x50 (74)
             try
             {   // Iterate through bytes
-                for (int i = 74; i <= dataSize + 200; i++)  // TODO (MTK): Fix this
+                for (int i = 73; i <= byteList.Count - 4; i++)
+                {
                     //  Branch and send two bytes if needed
                     if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) || byteList[i].Equals(0x5D) || byteList[i].Equals(0x5E) || byteList[i].Equals(0x60) || byteList[i].Equals(0x61) || byteList[i].Equals(0x62) || byteList[i].Equals(0x63) || byteList[i].Equals(0x7E))
                     {
-                        allbytes += _83FileFormat.BytesToKeyword(byteList[i], byteList[i+1]);
+                        // Combine the two bytes into an integer
+                        tokenInteger = (byteList[i] << 8) + byteList[i + 1];
+                        // Since we already read in the next byte, we increment by one to skip it.
                         i++;
                     }
                     else
                     {
-                        allbytes += _83FileFormat.ByteToKeyword(byteList[i]);
+                        // Assume that the first byte is 0x00 and combine it with the second.
+                        tokenInteger = (0 << 8) + byteList[i + 1];
                     }
+                    // Get the string from the database and append it to the variable
+                    //Console.WriteLine(tokenInteger);
+                    allbytes += _83FileFormat.IntegerToString(tokenInteger).Replace("\n", String.Empty);
+                }
             }
             catch (ArgumentOutOfRangeException e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Argument out of range! Are we losing data?");
+                //Console.WriteLine(e);
             }
 
-  /*
-            string allbytes = "";
-            int byteCount = byteList.Count;
-            for (int i = 0; i < byteCount; i++)
-            {
-                if (!_83FileFormat.DoesByteDenoteTwoByteToken(byteList[i]))
-                {
-                    allbytes += _83FileFormat.SingleByteToKeyword(byteList[i]);
-                }
-                else
-                {
-                    allbytes += _83FileFormat.DualByteToKeyword(byteList[i], byteList[i + 1]);
-                    i++;
-                }
-
-            
-*/
-            //foreach (byte b in byteList)
-            //{
-            //    allbytes += _83FileFormat.ByteToKeyword(b);
-            //}
-
-            Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
+            //Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
             return allbytes;
         }
 

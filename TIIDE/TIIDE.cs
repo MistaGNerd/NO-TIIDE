@@ -9,7 +9,7 @@ namespace TIIDE
     {
         #region Private Fields
 
-        private OpenFileDialog ofd = new OpenFileDialog();
+        private OpenFileDialog ofd = new OpenFileDialog() {Filter= "TI-83+ Program File (*.8xp)|*.8xp|All Files (*.*)|*.*" };
         private string programCode = "";
 
         #endregion Private Fields
@@ -170,9 +170,10 @@ namespace TIIDE
         {
         }
 
+        // Load in file from Open File Dialog
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ofd.ShowDialog();
+            ofd.ShowDialog();   
             string import = "";
             rtxtbIDE.Text = import;
 
@@ -180,12 +181,11 @@ namespace TIIDE
             {
                 Console.WriteLine("Importing file {0}", ofd.FileName);
                 int dataSize = Compile.Compiler.GetDataSize(new BinaryReader(File.OpenRead(ofd.FileName)));
-                import = Compile.Compiler.ReverseCompile(new BinaryReader(File.OpenRead(ofd.FileName)), dataSize);
+                import = Compile.Compiler.ReverseCompile(new BinaryReader(File.OpenRead(ofd.FileName)));
             }
             Console.WriteLine("writing to ide");
             programCode = import;
 
-            // Add in other data from file header
             rtxtbIDE.Text = programCode;
         }
 
