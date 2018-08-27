@@ -9,7 +9,7 @@ namespace TIIDE
     {
         #region Private Fields
 
-        private OpenFileDialog ofd = new OpenFileDialog() {Filter= "TI-83+ Program File (*.8xp)|*.8xp|All Files (*.*)|*.*" };
+        private OpenFileDialog ofd = new OpenFileDialog() {Filter= "TI-83+ Program Files (*.8xp)|*.8xp|TI-82/83 Program Files (*.83p)|*.83p|All Files (*.*)|*.*" };
         private string programCode = "";
 
         #endregion Private Fields

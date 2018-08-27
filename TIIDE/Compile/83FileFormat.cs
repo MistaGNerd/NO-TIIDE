@@ -12,7 +12,7 @@ namespace TIIDE.Compile
         #endregion Private Fields
 
         #region Public Methods
-
+        // TODO: THIS IS INCOMPLETE
         public static string BytesToString(byte b1, byte b2)
         {
             //var token = SqliteDataAccess.FindTokenByHex(b1.ToString(), b2.ToString())[0];
@@ -31,13 +31,14 @@ namespace TIIDE.Compile
             catch
             {
                 int integer = i;
+                // TODO: Not entirely sure if this is little or big endian. Changing the endianess could be wrong.
                 i = ((i << 8) | (i >> 8)) & 0xFFFF;
                 Console.WriteLine("ERROR: Attempt to access integer {0} | hex {1} in database failed.", integer, i.ToString("x4"));
                 return "[?|" + i.ToString("X4") +"]";
             }
         }
-       
-        // Untested
+
+        // TODO: THIS IS INCOMPLETE
         public static byte StringToByte(string s)
         {
             var token = SqliteDataAccess.FindTokenByString(s)[0];
