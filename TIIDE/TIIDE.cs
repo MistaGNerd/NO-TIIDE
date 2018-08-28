@@ -163,20 +163,7 @@ namespace TIIDE
         // Load in file from Open File Dialog
         private void ImportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ofd.ShowDialog();   
-            string import = "";
-            rtxtbIDE.Text = import;
 
-            if (File.Exists(ofd.FileName))
-            {
-                Console.WriteLine("Importing file {0}", ofd.FileName);
-                var file83 = Compiler.Decompile(new BinaryReader(File.OpenRead(ofd.FileName)));
-                import = Compiler.ReverseCompile(new List<Byte> (file83.Data));
-            }
-            Console.WriteLine("writing to ide");
-            programCode = import;
-
-            rtxtbIDE.Text = programCode;
         }
 
         private void Init()
@@ -261,7 +248,40 @@ namespace TIIDE
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
+        private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ofd.ShowDialog();
+            string import = "";
+
+            if (File.Exists(ofd.FileName))
+            {
+                Console.WriteLine("Importing file {0}", ofd.FileName);
+                TICalcLibrary.TI83Model prgm83 = Compiler.GetTI83Object(new BinaryReader(File.OpenRead(ofd.FileName)));
+                import = Compiler.ReverseCompile(new List<Byte>(prgm83.Data));
+            }
+            Console.WriteLine("writing to ide");
+            programCode = import;
+
+            // Apply standard formatting at load
+            rtxtbIDE.Text = ApplyIDEFormatting(programCode);
         }
     }
 }
