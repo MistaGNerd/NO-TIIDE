@@ -58,6 +58,7 @@
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -177,10 +178,12 @@
             // projectToolStripMenuItem
             // 
             this.projectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.codeFormattingToolStripMenuItem});
+            this.codeFormattingToolStripMenuItem,
+            this.fileInformationToolStripMenuItem});
             this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
             this.projectToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.projectToolStripMenuItem.Text = "View";
+            this.projectToolStripMenuItem.Click += new System.EventHandler(this.projectToolStripMenuItem_Click);
             // 
             // codeFormattingToolStripMenuItem
             // 
@@ -328,6 +331,13 @@
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             // 
+            // fileInformationToolStripMenuItem
+            // 
+            this.fileInformationToolStripMenuItem.Name = "fileInformationToolStripMenuItem";
+            this.fileInformationToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.fileInformationToolStripMenuItem.Text = "File Information...";
+            this.fileInformationToolStripMenuItem.Click += new System.EventHandler(this.FileInformationToolStripMenuItem_Click);
+            // 
             // TIIDE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -386,6 +396,7 @@
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileInformationToolStripMenuItem;
     }
 }
 

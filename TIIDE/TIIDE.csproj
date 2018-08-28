@@ -61,6 +61,12 @@
     <Compile Include="Compile\SqliteDataAccess.cs" />
     <Compile Include="Compile\TokenModel.cs" />
     <Compile Include="Compile\Compiler.cs" />
+    <Compile Include="formFileDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formFileDetails.Designer.cs">
+      <DependentUpon>formFileDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="TIIDE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="formFileDetails.resx">
+      <DependentUpon>formFileDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TIIDE.resx">
       <DependentUpon>TIIDE.cs</DependentUpon>
     </EmbeddedResource>
