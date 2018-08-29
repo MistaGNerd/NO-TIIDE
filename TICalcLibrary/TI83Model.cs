@@ -41,5 +41,6 @@ namespace TICalcLibrary
         public bool ProtectFlag { get; set; } = false;
 
         public byte[] Checksum { get; set; }
+        public string AssociatedFileName { get; set; } = " ";
     }
 }
