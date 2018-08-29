@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TICalcLibrary;
 
@@ -26,12 +19,10 @@ namespace TIIDE
                 else
                     lblProtected.Text = "No";
             }
-            catch (Exception e){ Console.WriteLine(e); }
-
-
+            catch (Exception e) { Console.WriteLine(e); }
         }
 
-        private void FormFileDetailsLoad (object sender, EventArgs e)
+        private void FormFileDetailsLoad(object sender, EventArgs e)
         {
             TICalcLibrary.TI83Model prgm83 = TIIDE.prgm83;
             lblFileName.Text = prgm83.AssociatedFileName;

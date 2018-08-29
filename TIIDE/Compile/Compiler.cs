@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TICalcLibrary;
-using System.ComponentModel;
 using System.Threading.Tasks;
+using TICalcLibrary;
 
 namespace TIIDE.Compile
 {
@@ -55,20 +54,20 @@ namespace TIIDE.Compile
                 for (int i = 0; i < byteList.Count; i++)
                 {
                     // If the first byte does not match here, branch to else and assume the first byte is 0x00.
-                    if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) || 
-                        byteList[i].Equals(0x5D) || byteList[i].Equals(0x5E) || byteList[i].Equals(0x60) ||
-                        byteList[i].Equals(0x61) || byteList[i].Equals(0x62) || byteList[i].Equals(0x63) || 
-                        byteList[i].Equals(0x7E) || byteList[i].Equals(0xEF))
+                    if (byteList [i].Equals(0xBB) || byteList [i].Equals(0xAA) || byteList [i].Equals(0x5C) ||
+                        byteList [i].Equals(0x5D) || byteList [i].Equals(0x5E) || byteList [i].Equals(0x60) ||
+                        byteList [i].Equals(0x61) || byteList [i].Equals(0x62) || byteList [i].Equals(0x63) ||
+                        byteList [i].Equals(0x7E) || byteList [i].Equals(0xEF))
                     {
                         // Combine the two bytes into an integer
-                        tokenInteger = (byteList[i] << 8) + byteList[i + 1];
+                        tokenInteger = (byteList [i] << 8) + byteList [i + 1];
                         // Since we already read in the next byte, we increment our pointer by one to skip it.
                         i++;
                     }
                     else
                     {
                         // Assume that the first byte is 0x00 and combine it with the current byte.
-                        tokenInteger = (0x00 << 8) + byteList[i];
+                        tokenInteger = (0x00 << 8) + byteList [i];
                     }
                     // Get the string from the database and append it to the variable
                     allbytes += IntegerToString(tokenInteger);
@@ -87,25 +86,26 @@ namespace TIIDE.Compile
         {
             int tokenInteger = 0;
             string allbytes = "";
+
             try
             {   // Iterate through bytes
                 for (int i = 0; i < byteList.Count; i++)
                 {
                     // If the first byte does not match here, branch to else and assume the first byte is 0x00.
-                    if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) ||
-                        byteList[i].Equals(0x5D) || byteList[i].Equals(0x5E) || byteList[i].Equals(0x60) ||
-                        byteList[i].Equals(0x61) || byteList[i].Equals(0x62) || byteList[i].Equals(0x63) ||
-                        byteList[i].Equals(0x7E) || byteList[i].Equals(0xEF))
+                    if (byteList [i].Equals(0xBB) || byteList [i].Equals(0xAA) || byteList [i].Equals(0x5C) ||
+                        byteList [i].Equals(0x5D) || byteList [i].Equals(0x5E) || byteList [i].Equals(0x60) ||
+                        byteList [i].Equals(0x61) || byteList [i].Equals(0x62) || byteList [i].Equals(0x63) ||
+                        byteList [i].Equals(0x7E) || byteList [i].Equals(0xEF))
                     {
                         // Combine the two bytes into an integer
-                        tokenInteger = (byteList[i] << 8) + byteList[i + 1];
+                        tokenInteger = (byteList [i] << 8) + byteList [i + 1];
                         // Since we already read in the next byte, we increment our pointer by one to skip it.
                         i++;
                     }
                     else
                     {
                         // Assume that the first byte is 0x00 and combine it with the current byte.
-                        tokenInteger = (0x00 << 8) + byteList[i];
+                        tokenInteger = (0x00 << 8) + byteList [i];
                     }
                     // Get the string from the database and append it to the variable
                     allbytes += await Task.Run(() => IntegerToString(tokenInteger));
@@ -120,7 +120,6 @@ namespace TIIDE.Compile
             return allbytes;
         }
 
-
         internal static TI83Model GetTI83Object(BinaryReader binaryReader)
         {
             List<byte> byteList = LoadBytes(binaryReader);
@@ -133,8 +132,8 @@ namespace TIIDE.Compile
             byte[] prgmNameBytes = new byte[8];
             for (int i = 0; i < 8; i++)
             {
-                prgmTypeBytes[i] = byteList[i + file83.TypeOffset];
-                prgmNameBytes[i] = byteList[i + file83.NameOffset];
+                prgmTypeBytes [i] = byteList [i + file83.TypeOffset];
+                prgmNameBytes [i] = byteList [i + file83.NameOffset];
             }
             file83.Type = Encoding.ASCII.GetString(prgmTypeBytes);
             file83.Name = Encoding.ASCII.GetString(prgmNameBytes);
@@ -142,24 +141,24 @@ namespace TIIDE.Compile
             // Load program [Comment]
             byte[] prgmCommentBytes = new byte[40];
             for (int i = 0; i < 40; i++)
-                prgmCommentBytes[i] = byteList[i + file83.CommentOffset];
+                prgmCommentBytes [i] = byteList [i + file83.CommentOffset];
             file83.Comment = Encoding.ASCII.GetString(prgmCommentBytes);
 
             // Load program [Data Length] (size in bytes)
             byte[] prgmDataLength = new byte[2];
             for (int i = 0; i < 2; i++)
-                prgmDataLength[i] = byteList[i + file83.DataLengthOffset];
-            file83.DataLength = (prgmDataLength[1] << 8) + prgmDataLength[0];
+                prgmDataLength [i] = byteList [i + file83.DataLengthOffset];
+            file83.DataLength = (prgmDataLength [1] << 8) + prgmDataLength [0];
 
             // Load program [Data]
             //List<byte> prgmData = new List<byte>();
             byte[] prgmData = new byte[file83.DataLength];
             for (int i = 2; i < (file83.DataLength); i++)
-                prgmData[i] = byteList[i + file83.DataOffset];
+                prgmData [i] = byteList [i + file83.DataOffset];
             file83.Data = prgmData;
 
             // Load program [ProtectFlag]
-            if (byteList[file83.ProtectFlagOffset].Equals(6))
+            if (byteList [file83.ProtectFlagOffset].Equals(6))
                 file83.ProtectFlag = true;
             else
                 file83.ProtectFlag = false;
@@ -168,12 +167,11 @@ namespace TIIDE.Compile
             byte[] prgmChecksum = new byte[16];
             int checksumOffset = file83.DataLength - 16;
             for (int i = 0; i < 16; i++)
-                prgmChecksum[i] = byteList[i + checksumOffset];
+                prgmChecksum [i] = byteList [i + checksumOffset];
             file83.Checksum = prgmChecksum;
 
             return file83;
         }
-
 
         public static string IntegerToString(int i)
         {
@@ -189,7 +187,6 @@ namespace TIIDE.Compile
             }
         }
 
-        
         // TODO: THIS IS INCOMPLETE
         public static string BytesToString(byte b1, byte b2)
         {
@@ -199,7 +196,6 @@ namespace TIIDE.Compile
             return "?";
         }
 
-        
         // TODO: THIS IS INCOMPLETE
         public static byte StringToByte(string s)
         {
@@ -207,7 +203,6 @@ namespace TIIDE.Compile
             string b = token.HighByte + token.LowByte;
             return Convert.ToByte(b, 16);
         }
-
 
         #endregion Public Methods
     }
