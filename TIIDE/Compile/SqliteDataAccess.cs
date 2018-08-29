@@ -29,6 +29,18 @@ namespace TIIDE.Compile
             }
         }
 
+        public static async Task<List<TokenModel>> FindTokenByIntegerAsync(int tokenInteger = 0)
+        {
+            string sqlFindTokenByInteger = "select * from Tokens where Integer is " + tokenInteger.ToString();
+
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = await Task.Run(() => cnn.Query<TokenModel>(sqlFindTokenByInteger, new DynamicParameters()));
+                return output.ToList();
+            }
+        }
+
+
         /// <summary>
         /// This function takes a single argument of type "string".
         /// The string given corresponds to the Token in the DB.

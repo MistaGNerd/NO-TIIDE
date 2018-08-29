@@ -1,4 +1,7 @@
-﻿namespace TIIDE
+﻿using System;
+using System.ComponentModel;
+
+namespace TIIDE
 {
     partial class TIIDE
     {
@@ -28,7 +31,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TIIDE));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLoadingBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -36,10 +38,11 @@
             this.fILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.openTIProjectFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exportProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +50,7 @@
             this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lineNumberDisplay = new System.Windows.Forms.RichTextBox();
@@ -56,9 +60,6 @@
             this.FontSizeComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -123,22 +124,40 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            // 
+            // exportProgramToolStripMenuItem
+            // 
+            this.exportProgramToolStripMenuItem.Name = "exportProgramToolStripMenuItem";
+            this.exportProgramToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.exportProgramToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.exportProgramToolStripMenuItem.Text = "Save";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.saveAsToolStripMenuItem.Text = "Save As...";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(179, 6);
             // 
             // openTIProjectFileToolStripMenuItem
             // 
             this.openTIProjectFileToolStripMenuItem.Enabled = false;
             this.openTIProjectFileToolStripMenuItem.Name = "openTIProjectFileToolStripMenuItem";
-            this.openTIProjectFileToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.openTIProjectFileToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.openTIProjectFileToolStripMenuItem.Text = "Open Project";
             this.openTIProjectFileToolStripMenuItem.Click += new System.EventHandler(this.OpenTIProjectFileToolStripMenuItem_Click);
             // 
@@ -146,32 +165,19 @@
             // 
             this.importProgramToolStripMenuItem.Enabled = false;
             this.importProgramToolStripMenuItem.Name = "importProgramToolStripMenuItem";
-            this.importProgramToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.importProgramToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.importProgramToolStripMenuItem.Text = "Save Project";
-            this.importProgramToolStripMenuItem.Click += new System.EventHandler(this.ImportProgramToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(213, 6);
-            // 
-            // exportProgramToolStripMenuItem
-            // 
-            this.exportProgramToolStripMenuItem.Name = "exportProgramToolStripMenuItem";
-            this.exportProgramToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportProgramToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.exportProgramToolStripMenuItem.Text = "Save";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(213, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(179, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeyDisplayString = "Alt-F4";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -192,7 +198,7 @@
             this.hexToolStripMenuItem,
             this.rawToolStripMenuItem});
             this.codeFormattingToolStripMenuItem.Name = "codeFormattingToolStripMenuItem";
-            this.codeFormattingToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.codeFormattingToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
             this.codeFormattingToolStripMenuItem.Text = "Code Formatting";
             // 
             // standardToolStripMenuItem
@@ -218,6 +224,13 @@
             this.rawToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.rawToolStripMenuItem.Text = "Raw";
             this.rawToolStripMenuItem.Click += new System.EventHandler(this.RawToolStripMenuItem_Click);
+            // 
+            // fileInformationToolStripMenuItem
+            // 
+            this.fileInformationToolStripMenuItem.Name = "fileInformationToolStripMenuItem";
+            this.fileInformationToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.fileInformationToolStripMenuItem.Text = "File Information...";
+            this.fileInformationToolStripMenuItem.Click += new System.EventHandler(this.FileInformationToolStripMenuItem_Click);
             // 
             // projectToolStripMenuItem1
             // 
@@ -308,35 +321,15 @@
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(39, 25);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(19, 25);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
             // toolStripComboBox2
             // 
             this.toolStripComboBox2.Name = "toolStripComboBox2";
             this.toolStripComboBox2.Size = new System.Drawing.Size(121, 28);
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.saveAsToolStripMenuItem.Text = "Save As...";
-            // 
-            // fileInformationToolStripMenuItem
-            // 
-            this.fileInformationToolStripMenuItem.Name = "fileInformationToolStripMenuItem";
-            this.fileInformationToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.fileInformationToolStripMenuItem.Text = "File Information...";
-            this.fileInformationToolStripMenuItem.Click += new System.EventHandler(this.FileInformationToolStripMenuItem_Click);
             // 
             // TIIDE
             // 
@@ -391,7 +384,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exportProgramToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;

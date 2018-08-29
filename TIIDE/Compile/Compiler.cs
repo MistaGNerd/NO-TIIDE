@@ -4,6 +4,8 @@ using System.IO;
 using System.Text;
 using TICalcLibrary;
 using System.ComponentModel;
+using System.Threading.Tasks;
+
 namespace TIIDE.Compile
 {
     internal class Compiler
@@ -80,7 +82,44 @@ namespace TIIDE.Compile
             //Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
             return allbytes;
         }
-        
+
+        internal static async Task<string> ReverseCompileAsync(List<byte> byteList)
+        {
+            int tokenInteger = 0;
+            string allbytes = "";
+            try
+            {   // Iterate through bytes
+                for (int i = 0; i < byteList.Count; i++)
+                {
+                    // If the first byte does not match here, branch to else and assume the first byte is 0x00.
+                    if (byteList[i].Equals(0xBB) || byteList[i].Equals(0xAA) || byteList[i].Equals(0x5C) ||
+                        byteList[i].Equals(0x5D) || byteList[i].Equals(0x5E) || byteList[i].Equals(0x60) ||
+                        byteList[i].Equals(0x61) || byteList[i].Equals(0x62) || byteList[i].Equals(0x63) ||
+                        byteList[i].Equals(0x7E) || byteList[i].Equals(0xEF))
+                    {
+                        // Combine the two bytes into an integer
+                        tokenInteger = (byteList[i] << 8) + byteList[i + 1];
+                        // Since we already read in the next byte, we increment our pointer by one to skip it.
+                        i++;
+                    }
+                    else
+                    {
+                        // Assume that the first byte is 0x00 and combine it with the current byte.
+                        tokenInteger = (0x00 << 8) + byteList[i];
+                    }
+                    // Get the string from the database and append it to the variable
+                    allbytes += await Task.Run(() => IntegerToString(tokenInteger));
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("ReverseCompile(): Argument out of range! Are we losing data?");
+            }
+
+            //Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
+            return allbytes;
+        }
+
 
         internal static TI83Model GetTI83Object(BinaryReader binaryReader)
         {
@@ -135,14 +174,6 @@ namespace TIIDE.Compile
             return file83;
         }
 
-        // TODO: THIS IS INCOMPLETE
-        public static string BytesToString(byte b1, byte b2)
-        {
-            //var token = SqliteDataAccess.FindTokenByHex(b1.ToString(), b2.ToString())[0];
-            Console.WriteLine(b1.ToString(), b2.ToString());
-            //return token.String;
-            return "?";
-        }
 
         public static string IntegerToString(int i)
         {
@@ -158,6 +189,17 @@ namespace TIIDE.Compile
             }
         }
 
+        
+        // TODO: THIS IS INCOMPLETE
+        public static string BytesToString(byte b1, byte b2)
+        {
+            //var token = SqliteDataAccess.FindTokenByHex(b1.ToString(), b2.ToString())[0];
+            Console.WriteLine(b1.ToString(), b2.ToString());
+            //return token.String;
+            return "?";
+        }
+
+        
         // TODO: THIS IS INCOMPLETE
         public static byte StringToByte(string s)
         {
@@ -165,7 +207,6 @@ namespace TIIDE.Compile
             string b = token.HighByte + token.LowByte;
             return Convert.ToByte(b, 16);
         }
-
 
 
         #endregion Public Methods
