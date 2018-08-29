@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using TIIDE.Compile;
 using TICalcLibrary;
+using TIIDE.Compile;
 
 namespace TIIDE
 {
@@ -14,7 +14,7 @@ namespace TIIDE
 
         #region Private Fields
 
-        private OpenFileDialog ofd = new OpenFileDialog() {Filter= "TI-83+ Program Files (*.8xp)|*.8xp|TI-82/83 Program Files (*.83p)|*.83p|All Files (*.*)|*.*" };
+        private OpenFileDialog ofd = new OpenFileDialog() { Filter = "TI-83+ Program Files (*.8xp)|*.8xp|TI-82/83 Program Files (*.83p)|*.83p|All Files (*.*)|*.*" };
         private string programCode = "";
 
         #endregion Private Fields
@@ -171,9 +171,6 @@ namespace TIIDE
 
         #endregion IDE Methods
 
-
-
-
         private void LineStartSyntaxCorrection()
         {
             Console.WriteLine("Running Correction");
@@ -181,7 +178,7 @@ namespace TIIDE
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
-                if (!line.StartsWith(":")) { lines[i] = ":" + line; Console.WriteLine("Line " + i + " - Corrected. Was -" + line); }
+                if (!line.StartsWith(":")) { lines [i] = ":" + line; Console.WriteLine("Line " + i + " - Corrected. Was -" + line); }
             }
             if (rtxtbIDE.Lines != lines) { rtxtbIDE.Lines = lines; }
         }
@@ -190,8 +187,8 @@ namespace TIIDE
         {
         }
 
-
         /* Code formatting selection box controls */
+
         private void RawToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Make sure standard and hex are unchecked
@@ -200,7 +197,6 @@ namespace TIIDE
             hexToolStripMenuItem.Checked = false;
             rtxtbIDE.Text = programCode;
         }
-
 
         private void StandardToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -213,7 +209,6 @@ namespace TIIDE
             rtxtbIDE.Text = ApplyIDEFormatting(programCode);
         }
 
-
         private void HexToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Make sure raw and standard are unchecked
@@ -223,13 +218,11 @@ namespace TIIDE
             rtxtbIDE.Text = ApplyHexOrderFormatting(programCode);
         }
 
-
         private void RtxtbIDE_MouseEnter(object sender, EventArgs e)
         {
             Point pt = rtxtbIDE.GetPositionFromCharIndex(rtxtbIDE.SelectionStart);
             Console.WriteLine(pt.ToString());
         }
-
 
         private void FontSizeComboBox_TextChanged(object sender, EventArgs e)
         {
@@ -239,7 +232,6 @@ namespace TIIDE
             lineNumberDisplay.Font = fontArial;
         }
 
-
         private void RichTextBox1_FontChanged(object sender, EventArgs e)
         {
             lineNumberDisplay.Font = rtxtbIDE.Font;
@@ -247,23 +239,20 @@ namespace TIIDE
             UpdateGUI();
         }
 
-
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-
         private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-
         }
-
 
         private async void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             rtxtbIDE.Enabled = false;
             ofd.ShowDialog();
+            rtxtbIDE.Text = $"Loading file {ofd.FileName}. Please wait...";
             if (File.Exists(ofd.FileName))
             {
                 Console.WriteLine("Importing file {0}", ofd.FileName);
@@ -280,14 +269,13 @@ namespace TIIDE
             // Apply standard formatting at load
             rtxtbIDE.Text = ApplyIDEFormatting(programCode);
             rtxtbIDE.Enabled = true;
+            fileInformationToolStripMenuItem.Enabled = true;
+            
         }
-
 
         private void projectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
-
 
         private void FileInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
