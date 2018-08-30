@@ -82,8 +82,9 @@ namespace TIIDE.Compile
             return allbytes;
         }
 
-        internal static async Task<string> ReverseCompileAsync(List<byte> byteList)
+        internal static async Task<string> ReverseCompileAsync(List<byte> byteList, IProgress<ProgressReportModel> progress)
         {
+            ProgressReportModel report = new ProgressReportModel();
             int tokenInteger = 0;
             string allbytes = "";
 
@@ -109,13 +110,15 @@ namespace TIIDE.Compile
                     }
                     // Get the string from the database and append it to the variable
                     allbytes += await Task.Run(() => IntegerToString(tokenInteger));
+                    report.PercentageComplete = (i * 100) / byteList.Count;
+                    progress.Report(report);
                 }
             }
             catch (ArgumentOutOfRangeException)
             {
                 Console.WriteLine("ReverseCompile(): Argument out of range! Are we losing data?");
             }
-
+            report.PercentageComplete = 0;
             //Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
             return allbytes;
         }

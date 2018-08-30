@@ -40,8 +40,8 @@ namespace TIIDE
 
         private void Init()
         {
-            FontSizeComboBox.SelectedIndex = 6;
-            Font ideFont = new Font("Arial", 16, FontStyle.Regular);
+            FontSizeComboBox.SelectedIndex = 3;
+            Font ideFont = new Font("Arial", 12, FontStyle.Regular);
             rtxtbIDE.Font = ideFont;
             lineNumberDisplay.Font = ideFont;
         }
@@ -76,12 +76,12 @@ namespace TIIDE
             }
         }
 
-        private void RichTextBox1_TextChanged(object sender, EventArgs e)
+        private void RtxtbIDE_TextChanged(object sender, EventArgs e)
         {
             UpdateGUI();
         }
 
-        private void RichTextBox1_VScroll(object sender, EventArgs e)
+        private void RtxtbIDE_VScroll(object sender, EventArgs e)
         {
             UpdateGUI();
         }
@@ -250,7 +250,10 @@ namespace TIIDE
 
         private async void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
+            progress.ProgressChanged += ReportProgress;
             rtxtbIDE.Enabled = false;
+            statusLoadingBar2.Visible = true;
             ofd.ShowDialog();
             rtxtbIDE.Text = $"Loading file {ofd.FileName}. Please wait...";
             if (File.Exists(ofd.FileName))
@@ -261,16 +264,22 @@ namespace TIIDE
                 watch.Stop();
                 Console.WriteLine($"Read file to TI83Object took {watch.ElapsedMilliseconds} milliseconds.");
                 watch.Restart();
-                programCode = await Compiler.ReverseCompileAsync(new List<Byte>(prgm83.Data));
+                programCode = await Compiler.ReverseCompileAsync(new List<Byte>(prgm83.Data), progress);
                 watch.Stop();
                 Console.WriteLine($"Detokenize process took {watch.ElapsedMilliseconds} milliseconds.");
             }
+            prgm83.AssociatedFileName = ofd.FileName;
             //Console.WriteLine("writing to ide");
             // Apply standard formatting at load
             rtxtbIDE.Text = ApplyIDEFormatting(programCode);
             rtxtbIDE.Enabled = true;
+            statusLoadingBar2.Visible = false;
             fileInformationToolStripMenuItem.Enabled = true;
-            
+        }
+
+        private void ReportProgress(object sender, ProgressReportModel e)
+        {
+            statusLoadingBar2.Value = e.PercentageComplete;
         }
 
         private void projectToolStripMenuItem_Click(object sender, EventArgs e)

@@ -67,6 +67,7 @@
     <Compile Include="formFileDetails.Designer.cs">
       <DependentUpon>formFileDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProgressReportModel.cs" />
     <Compile Include="TIIDE.cs">
       <SubType>Form</SubType>
     </Compile>
