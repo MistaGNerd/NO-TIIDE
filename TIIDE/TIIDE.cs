@@ -250,6 +250,8 @@ namespace TIIDE
 
         private async void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
+            progress.ProgressChanged += ReportProgress;
             rtxtbIDE.Enabled = false;
             ofd.ShowDialog();
             rtxtbIDE.Text = $"Loading file {ofd.FileName}. Please wait...";
@@ -261,7 +263,7 @@ namespace TIIDE
                 watch.Stop();
                 Console.WriteLine($"Read file to TI83Object took {watch.ElapsedMilliseconds} milliseconds.");
                 watch.Restart();
-                programCode = await Compiler.ReverseCompileAsync(new List<Byte>(prgm83.Data));
+                programCode = await Compiler.ReverseCompileAsync(new List<Byte>(prgm83.Data), progress);
                 watch.Stop();
                 Console.WriteLine($"Detokenize process took {watch.ElapsedMilliseconds} milliseconds.");
             }
@@ -270,7 +272,11 @@ namespace TIIDE
             rtxtbIDE.Text = ApplyIDEFormatting(programCode);
             rtxtbIDE.Enabled = true;
             fileInformationToolStripMenuItem.Enabled = true;
-            
+        }
+
+        private void ReportProgress(object sender, ProgressReportModel e)
+        {
+            statusLoadingBar2.Value = e.PercentageComplete;
         }
 
         private void projectToolStripMenuItem_Click(object sender, EventArgs e)

@@ -67,6 +67,7 @@
     <Compile Include="formFileDetails.Designer.cs">
       <DependentUpon>formFileDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProgressReportModel.cs" />
     <Compile Include="TIIDE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +76,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="formFileDetails.resx">
       <DependentUpon>formFileDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +97,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

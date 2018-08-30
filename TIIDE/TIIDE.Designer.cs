@@ -31,9 +31,6 @@ namespace TIIDE
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusLoadingBar = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,41 +50,25 @@ namespace TIIDE
             this.fileInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lineNumberDisplay = new System.Windows.Forms.RichTextBox();
-            this.rtxtbIDE = new System.Windows.Forms.RichTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.FontSizeComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
-            this.statusStrip1.SuspendLayout();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.rtxtbIDE = new System.Windows.Forms.RichTextBox();
+            this.lineNumberDisplay = new System.Windows.Forms.RichTextBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLoadingBar2 = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.statusLoadingBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 531);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1067, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
-            // statusLoadingBar
-            // 
-            this.statusLoadingBar.Name = "statusLoadingBar";
-            this.statusLoadingBar.Size = new System.Drawing.Size(100, 18);
-            this.statusLoadingBar.Visible = false;
             // 
             // menuStrip1
             // 
@@ -99,8 +80,7 @@ namespace TIIDE
             this.buildToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1067, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1007, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuStrip1_ItemClicked);
@@ -118,21 +98,21 @@ namespace TIIDE
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fILEToolStripMenuItem.Name = "fILEToolStripMenuItem";
-            this.fILEToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fILEToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fILEToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Enabled = false;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -141,26 +121,26 @@ namespace TIIDE
             this.exportProgramToolStripMenuItem.Enabled = false;
             this.exportProgramToolStripMenuItem.Name = "exportProgramToolStripMenuItem";
             this.exportProgramToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportProgramToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.exportProgramToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.exportProgramToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Enabled = false;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(213, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(152, 6);
             // 
             // openTIProjectFileToolStripMenuItem
             // 
             this.openTIProjectFileToolStripMenuItem.Enabled = false;
             this.openTIProjectFileToolStripMenuItem.Name = "openTIProjectFileToolStripMenuItem";
-            this.openTIProjectFileToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.openTIProjectFileToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.openTIProjectFileToolStripMenuItem.Text = "Open Project";
             this.openTIProjectFileToolStripMenuItem.Click += new System.EventHandler(this.OpenTIProjectFileToolStripMenuItem_Click);
             // 
@@ -168,19 +148,19 @@ namespace TIIDE
             // 
             this.importProgramToolStripMenuItem.Enabled = false;
             this.importProgramToolStripMenuItem.Name = "importProgramToolStripMenuItem";
-            this.importProgramToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.importProgramToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.importProgramToolStripMenuItem.Text = "Save Project";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(213, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeyDisplayString = "Alt-F4";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -190,7 +170,7 @@ namespace TIIDE
             this.codeFormattingToolStripMenuItem,
             this.fileInformationToolStripMenuItem});
             this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-            this.projectToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.projectToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.projectToolStripMenuItem.Text = "View";
             this.projectToolStripMenuItem.Click += new System.EventHandler(this.projectToolStripMenuItem_Click);
             // 
@@ -201,7 +181,7 @@ namespace TIIDE
             this.hexToolStripMenuItem,
             this.rawToolStripMenuItem});
             this.codeFormattingToolStripMenuItem.Name = "codeFormattingToolStripMenuItem";
-            this.codeFormattingToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.codeFormattingToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.codeFormattingToolStripMenuItem.Text = "Code Formatting";
             // 
             // standardToolStripMenuItem
@@ -209,14 +189,14 @@ namespace TIIDE
             this.standardToolStripMenuItem.Checked = true;
             this.standardToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
-            this.standardToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.standardToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.standardToolStripMenuItem.Text = "Standard";
             this.standardToolStripMenuItem.Click += new System.EventHandler(this.StandardToolStripMenuItem_Click);
             // 
             // hexToolStripMenuItem
             // 
             this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
-            this.hexToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.hexToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.hexToolStripMenuItem.Text = "Hex";
             this.hexToolStripMenuItem.Click += new System.EventHandler(this.HexToolStripMenuItem_Click);
             // 
@@ -224,7 +204,7 @@ namespace TIIDE
             // 
             this.rawToolStripMenuItem.CheckOnClick = true;
             this.rawToolStripMenuItem.Name = "rawToolStripMenuItem";
-            this.rawToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.rawToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.rawToolStripMenuItem.Text = "Raw";
             this.rawToolStripMenuItem.Click += new System.EventHandler(this.RawToolStripMenuItem_Click);
             // 
@@ -232,7 +212,7 @@ namespace TIIDE
             // 
             this.fileInformationToolStripMenuItem.Enabled = false;
             this.fileInformationToolStripMenuItem.Name = "fileInformationToolStripMenuItem";
-            this.fileInformationToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.fileInformationToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.fileInformationToolStripMenuItem.Text = "File Information...";
             this.fileInformationToolStripMenuItem.Click += new System.EventHandler(this.FileInformationToolStripMenuItem_Click);
             // 
@@ -240,47 +220,14 @@ namespace TIIDE
             // 
             this.projectToolStripMenuItem1.Enabled = false;
             this.projectToolStripMenuItem1.Name = "projectToolStripMenuItem1";
-            this.projectToolStripMenuItem1.Size = new System.Drawing.Size(67, 24);
+            this.projectToolStripMenuItem1.Size = new System.Drawing.Size(56, 20);
             this.projectToolStripMenuItem1.Text = "Project";
             // 
             // buildToolStripMenuItem
             // 
             this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-            this.buildToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.buildToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.buildToolStripMenuItem.Text = "Build";
-            // 
-            // lineNumberDisplay
-            // 
-            this.lineNumberDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.lineNumberDisplay.BackColor = System.Drawing.Color.Gainsboro;
-            this.lineNumberDisplay.Location = new System.Drawing.Point(0, 64);
-            this.lineNumberDisplay.Margin = new System.Windows.Forms.Padding(4);
-            this.lineNumberDisplay.Name = "lineNumberDisplay";
-            this.lineNumberDisplay.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.lineNumberDisplay.Size = new System.Drawing.Size(72, 456);
-            this.lineNumberDisplay.TabIndex = 2;
-            this.lineNumberDisplay.TabStop = false;
-            this.lineNumberDisplay.Text = "";
-            this.lineNumberDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RtxtbLineNumbers_MouseDown);
-            // 
-            // rtxtbIDE
-            // 
-            this.rtxtbIDE.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtxtbIDE.Location = new System.Drawing.Point(81, 64);
-            this.rtxtbIDE.Margin = new System.Windows.Forms.Padding(4);
-            this.rtxtbIDE.Name = "rtxtbIDE";
-            this.rtxtbIDE.Size = new System.Drawing.Size(984, 457);
-            this.rtxtbIDE.TabIndex = 3;
-            this.rtxtbIDE.Text = "";
-            this.rtxtbIDE.WordWrap = false;
-            this.rtxtbIDE.SelectionChanged += new System.EventHandler(this.RichTextBox1_SelectionChanged);
-            this.rtxtbIDE.VScroll += new System.EventHandler(this.RichTextBox1_VScroll);
-            this.rtxtbIDE.FontChanged += new System.EventHandler(this.RichTextBox1_FontChanged);
-            this.rtxtbIDE.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
-            this.rtxtbIDE.MouseEnter += new System.EventHandler(this.RtxtbIDE_MouseEnter);
             // 
             // toolStrip1
             // 
@@ -291,16 +238,16 @@ namespace TIIDE
             this.FontSizeComboBox,
             this.toolStripSplitButton1,
             this.toolStripComboBox2});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1067, 28);
+            this.toolStrip1.Size = new System.Drawing.Size(1007, 25);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripComboBox1
             // 
             this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(160, 28);
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
             // 
             // FontSizeComboBox
             // 
@@ -318,7 +265,7 @@ namespace TIIDE
             "22",
             "24"});
             this.FontSizeComboBox.Name = "FontSizeComboBox";
-            this.FontSizeComboBox.Size = new System.Drawing.Size(160, 28);
+            this.FontSizeComboBox.Size = new System.Drawing.Size(121, 25);
             this.FontSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.FontSizeComboBox_TextChanged);
             this.FontSizeComboBox.TextChanged += new System.EventHandler(this.FontSizeComboBox_TextChanged);
             // 
@@ -327,48 +274,117 @@ namespace TIIDE
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(19, 25);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
             // toolStripComboBox2
             // 
             this.toolStripComboBox2.Name = "toolStripComboBox2";
-            this.toolStripComboBox2.Size = new System.Drawing.Size(121, 28);
+            this.toolStripComboBox2.Size = new System.Drawing.Size(92, 25);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 49);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.lineNumberDisplay);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.rtxtbIDE);
+            this.splitContainer1.Size = new System.Drawing.Size(1007, 468);
+            this.splitContainer1.SplitterDistance = 79;
+            this.splitContainer1.TabIndex = 7;
+            // 
+            // rtxtbIDE
+            // 
+            this.rtxtbIDE.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtxtbIDE.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxtbIDE.Location = new System.Drawing.Point(0, 0);
+            this.rtxtbIDE.Margin = new System.Windows.Forms.Padding(3, 3, 3, 20);
+            this.rtxtbIDE.Name = "rtxtbIDE";
+            this.rtxtbIDE.Size = new System.Drawing.Size(924, 468);
+            this.rtxtbIDE.TabIndex = 7;
+            this.rtxtbIDE.Text = "";
+            this.rtxtbIDE.WordWrap = false;
+            // 
+            // lineNumberDisplay
+            // 
+            this.lineNumberDisplay.BackColor = System.Drawing.Color.Gainsboro;
+            this.lineNumberDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lineNumberDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lineNumberDisplay.Location = new System.Drawing.Point(0, 0);
+            this.lineNumberDisplay.Name = "lineNumberDisplay";
+            this.lineNumberDisplay.ReadOnly = true;
+            this.lineNumberDisplay.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lineNumberDisplay.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.lineNumberDisplay.ShortcutsEnabled = false;
+            this.lineNumberDisplay.Size = new System.Drawing.Size(79, 468);
+            this.lineNumberDisplay.TabIndex = 6;
+            this.lineNumberDisplay.TabStop = false;
+            this.lineNumberDisplay.Text = "";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.statusLoadingBar2});
+            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 495);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1007, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 8;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // statusLoadingBar2
+            // 
+            this.statusLoadingBar2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.statusLoadingBar2.Name = "statusLoadingBar2";
+            this.statusLoadingBar2.RightToLeftLayout = true;
+            this.statusLoadingBar2.Size = new System.Drawing.Size(200, 16);
             // 
             // TIIDE
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 553);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.rtxtbIDE);
-            this.Controls.Add(this.lineNumberDisplay);
+            this.ClientSize = new System.Drawing.Size(1007, 517);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TIIDE";
             this.Text = "TIIDE";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.RichTextBox lineNumberDisplay;
         private System.Windows.Forms.ToolStripMenuItem fILEToolStripMenuItem;
-        private System.Windows.Forms.RichTextBox rtxtbIDE;
         private System.Windows.Forms.ToolStripMenuItem openTIProjectFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importProgramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
@@ -382,8 +398,6 @@ namespace TIIDE
         private System.Windows.Forms.ToolStripMenuItem rawToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem standardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hexToolStripMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripProgressBar statusLoadingBar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -393,6 +407,12 @@ namespace TIIDE
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileInformationToolStripMenuItem;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.RichTextBox rtxtbIDE;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripProgressBar statusLoadingBar2;
+        public System.Windows.Forms.RichTextBox lineNumberDisplay;
     }
 }
 
