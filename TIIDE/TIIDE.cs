@@ -268,6 +268,7 @@ namespace TIIDE
                 watch.Stop();
                 Console.WriteLine($"Detokenize process took {watch.ElapsedMilliseconds} milliseconds.");
             }
+            prgm83.AssociatedFileName = ofd.FileName;
             //Console.WriteLine("writing to ide");
             // Apply standard formatting at load
             rtxtbIDE.Text = ApplyIDEFormatting(programCode);
