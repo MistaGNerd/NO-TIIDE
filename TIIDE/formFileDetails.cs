@@ -25,18 +25,23 @@ namespace TIIDE
         private void FormFileDetailsLoad(object sender, EventArgs e)
         {
             TICalcLibrary.TI83Model prgm83 = TIIDE.prgm83;
-            lblFileName.Text = prgm83.AssociatedFileName;
-            lblProgramName.Text = prgm83.Name;
-            lblComment.Text = prgm83.Comment;
+            lblFileNameText.Text = prgm83.AssociatedFileName;
+            lblProgramNameText.Text = prgm83.Name;
+            lblCommentText.Text = prgm83.Comment;
             if (prgm83.ProtectFlag)
-                lblProtected.Text = "Yes";
+                lblProtectedText.Text = "Yes";
             else
-                lblProtected.Text = "No";
+                lblProtectedText.Text = "No";
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

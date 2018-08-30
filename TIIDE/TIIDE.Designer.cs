@@ -53,11 +53,9 @@ namespace TIIDE
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.FontSizeComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.rtxtbIDE = new System.Windows.Forms.RichTextBox();
             this.lineNumberDisplay = new System.Windows.Forms.RichTextBox();
+            this.rtxtbIDE = new System.Windows.Forms.RichTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLoadingBar2 = new System.Windows.Forms.ToolStripProgressBar();
@@ -80,7 +78,7 @@ namespace TIIDE
             this.buildToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1007, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(567, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuStrip1_ItemClicked);
@@ -181,7 +179,7 @@ namespace TIIDE
             this.hexToolStripMenuItem,
             this.rawToolStripMenuItem});
             this.codeFormattingToolStripMenuItem.Name = "codeFormattingToolStripMenuItem";
-            this.codeFormattingToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.codeFormattingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.codeFormattingToolStripMenuItem.Text = "Code Formatting";
             // 
             // standardToolStripMenuItem
@@ -212,7 +210,7 @@ namespace TIIDE
             // 
             this.fileInformationToolStripMenuItem.Enabled = false;
             this.fileInformationToolStripMenuItem.Name = "fileInformationToolStripMenuItem";
-            this.fileInformationToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.fileInformationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.fileInformationToolStripMenuItem.Text = "File Information...";
             this.fileInformationToolStripMenuItem.Click += new System.EventHandler(this.FileInformationToolStripMenuItem_Click);
             // 
@@ -235,19 +233,19 @@ namespace TIIDE
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBox1,
-            this.FontSizeComboBox,
-            this.toolStripSplitButton1,
-            this.toolStripComboBox2});
+            this.FontSizeComboBox});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1007, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(567, 25);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripComboBox1
             // 
+            this.toolStripComboBox1.Enabled = false;
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBox1.Text = "Arial";
             // 
             // FontSizeComboBox
             // 
@@ -265,26 +263,15 @@ namespace TIIDE
             "22",
             "24"});
             this.FontSizeComboBox.Name = "FontSizeComboBox";
-            this.FontSizeComboBox.Size = new System.Drawing.Size(121, 25);
+            this.FontSizeComboBox.Size = new System.Drawing.Size(75, 25);
             this.FontSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.FontSizeComboBox_TextChanged);
             this.FontSizeComboBox.TextChanged += new System.EventHandler(this.FontSizeComboBox_TextChanged);
             // 
-            // toolStripSplitButton1
-            // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
-            this.toolStripSplitButton1.Text = "toolStripSplitButton1";
-            // 
-            // toolStripComboBox2
-            // 
-            this.toolStripComboBox2.Name = "toolStripComboBox2";
-            this.toolStripComboBox2.Size = new System.Drawing.Size(92, 25);
-            // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 49);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -295,21 +282,10 @@ namespace TIIDE
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.rtxtbIDE);
-            this.splitContainer1.Size = new System.Drawing.Size(1007, 468);
-            this.splitContainer1.SplitterDistance = 79;
+            this.splitContainer1.Size = new System.Drawing.Size(567, 397);
+            this.splitContainer1.SplitterDistance = 44;
+            this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 7;
-            // 
-            // rtxtbIDE
-            // 
-            this.rtxtbIDE.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtxtbIDE.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtxtbIDE.Location = new System.Drawing.Point(0, 0);
-            this.rtxtbIDE.Margin = new System.Windows.Forms.Padding(3, 3, 3, 20);
-            this.rtxtbIDE.Name = "rtxtbIDE";
-            this.rtxtbIDE.Size = new System.Drawing.Size(924, 468);
-            this.rtxtbIDE.TabIndex = 7;
-            this.rtxtbIDE.Text = "";
-            this.rtxtbIDE.WordWrap = false;
             // 
             // lineNumberDisplay
             // 
@@ -322,10 +298,25 @@ namespace TIIDE
             this.lineNumberDisplay.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lineNumberDisplay.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.lineNumberDisplay.ShortcutsEnabled = false;
-            this.lineNumberDisplay.Size = new System.Drawing.Size(79, 468);
+            this.lineNumberDisplay.Size = new System.Drawing.Size(44, 397);
             this.lineNumberDisplay.TabIndex = 6;
             this.lineNumberDisplay.TabStop = false;
             this.lineNumberDisplay.Text = "";
+            this.lineNumberDisplay.VScroll += new System.EventHandler(this.RtxtbLineNumbers_VScroll);
+            // 
+            // rtxtbIDE
+            // 
+            this.rtxtbIDE.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtxtbIDE.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxtbIDE.Location = new System.Drawing.Point(0, 0);
+            this.rtxtbIDE.Margin = new System.Windows.Forms.Padding(3, 3, 3, 30);
+            this.rtxtbIDE.Name = "rtxtbIDE";
+            this.rtxtbIDE.Size = new System.Drawing.Size(521, 397);
+            this.rtxtbIDE.TabIndex = 7;
+            this.rtxtbIDE.Text = "";
+            this.rtxtbIDE.WordWrap = false;
+            this.rtxtbIDE.VScroll += new System.EventHandler(this.RtxtbIDE_VScroll);
+            this.rtxtbIDE.TextChanged += new System.EventHandler(this.RtxtbIDE_TextChanged);
             // 
             // statusStrip1
             // 
@@ -334,9 +325,10 @@ namespace TIIDE
             this.toolStripStatusLabel1,
             this.statusLoadingBar2});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 495);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 449);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1007, 22);
+            this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.statusStrip1.Size = new System.Drawing.Size(567, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
@@ -344,20 +336,23 @@ namespace TIIDE
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 0);
             // 
             // statusLoadingBar2
             // 
             this.statusLoadingBar2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.statusLoadingBar2.Name = "statusLoadingBar2";
+            this.statusLoadingBar2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.statusLoadingBar2.RightToLeftLayout = true;
-            this.statusLoadingBar2.Size = new System.Drawing.Size(200, 16);
+            this.statusLoadingBar2.Size = new System.Drawing.Size(100, 16);
+            this.statusLoadingBar2.Step = 5;
+            this.statusLoadingBar2.Visible = false;
             // 
             // TIIDE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1007, 517);
+            this.ClientSize = new System.Drawing.Size(567, 471);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
@@ -393,7 +388,6 @@ namespace TIIDE
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripComboBox FontSizeComboBox;
-        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem codeFormattingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rawToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem standardToolStripMenuItem;
@@ -402,7 +396,6 @@ namespace TIIDE
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exportProgramToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;

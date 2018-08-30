@@ -118,7 +118,7 @@ namespace TIIDE.Compile
             {
                 Console.WriteLine("ReverseCompile(): Argument out of range! Are we losing data?");
             }
-
+            report.PercentageComplete = 0;
             //Console.WriteLine("First byte: {0} - {1}", byteList[0], byteList[0].ToString("X2"));
             return allbytes;
         }
