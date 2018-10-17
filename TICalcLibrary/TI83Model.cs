@@ -72,6 +72,10 @@ namespace TICalcLibrary
         /// Used to get or set the checksum from the TI-83 program file.
         /// </summary>
         public byte[] Checksum { get; set; }
+
+        /// <summary>
+        /// Used as a placeholder to set the filename on disk. 
+        /// </summary>
         public string AssociatedFileName { get; set; } = " ";
     }
 }
