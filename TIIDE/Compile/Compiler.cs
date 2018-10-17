@@ -23,6 +23,11 @@ namespace TIIDE.Compile
         {
         }
 
+        /// <summary>
+        /// Load raw bytes from file into list object.
+        /// </summary>
+        /// <param name="binaryReader"></param>
+        /// <returns>List object</returns>
         internal static List<byte> LoadBytes(BinaryReader binaryReader)
         {
             bool reading = true;
@@ -45,6 +50,11 @@ namespace TIIDE.Compile
             return byteList;
         }
 
+        /// <summary>
+        /// Iterate through raw byte list and convert to token strings.
+        /// </summary>
+        /// <param name="byteList"></param>
+        /// <returns>List object</returns>
         internal static string ReverseCompile(List<byte> byteList)
         {
             int tokenInteger = 0;
@@ -82,6 +92,12 @@ namespace TIIDE.Compile
             return allbytes;
         }
 
+        /// <summary>
+        /// (Async) Iterate through raw byte list and convert to token strings.
+        /// </summary>
+        /// <param name="byteList"></param>
+        /// <param name="progress"></param>
+        /// <returns>List object</returns>
         internal static async Task<string> ReverseCompileAsync(List<byte> byteList, IProgress<ProgressReportModel> progress)
         {
             ProgressReportModel report = new ProgressReportModel();
@@ -123,6 +139,11 @@ namespace TIIDE.Compile
             return allbytes;
         }
 
+        /// <summary>
+        /// Read *83p file information into TI83 Model
+        /// </summary>
+        /// <param name="binaryReader"></param>
+        /// <returns>TI83Model object</returns>
         internal static TI83Model GetTI83Object(BinaryReader binaryReader)
         {
             List<byte> byteList = LoadBytes(binaryReader);
@@ -176,6 +197,11 @@ namespace TIIDE.Compile
             return file83;
         }
 
+        /// <summary>
+        /// Convert token integer to string
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns>String object</returns>
         public static string IntegerToString(int i)
         {
             try
