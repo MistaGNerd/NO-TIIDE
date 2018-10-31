@@ -1,0 +1,1 @@
+NO-TIIDE is "Not an Official Texas Instruments Integrated Development Environment". It is being developed to provide an alternative way to develop TI-BASIC programs for the TI-83 and similar calculators. It will have syntax checking and highlighting as well as the ability to save back to a compatable file.
