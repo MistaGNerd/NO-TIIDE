@@ -291,5 +291,10 @@ namespace TIIDE
             FormFileDetails formFileDetails = new FormFileDetails(prgm83);
             formFileDetails.Show(this);
         }
+
+        private void viewGitHubWikiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/MistaGNerd/NO-TIIDE/wiki");
+        }
     }
 }
