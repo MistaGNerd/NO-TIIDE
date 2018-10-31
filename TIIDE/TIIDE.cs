@@ -267,6 +267,7 @@ namespace TIIDE
                 programCode = await Compiler.ReverseCompileAsync(new List<Byte>(prgm83.Data), progress);
                 watch.Stop();
                 Console.WriteLine($"Detokenize process took {watch.ElapsedMilliseconds} milliseconds.");
+                fileInformationToolStripMenuItem.Enabled = true;
             }
             prgm83.AssociatedFileName = ofd.FileName;
             //Console.WriteLine("writing to ide");
@@ -274,7 +275,6 @@ namespace TIIDE
             rtxtbIDE.Text = ApplyIDEFormatting(programCode);
             rtxtbIDE.Enabled = true;
             statusLoadingBar2.Visible = false;
-            fileInformationToolStripMenuItem.Enabled = true;
         }
 
         private void ReportProgress(object sender, ProgressReportModel e)
